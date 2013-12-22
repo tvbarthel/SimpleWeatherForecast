@@ -32,6 +32,8 @@ public class MainActivity extends ActionBarActivity {
         mSectionsPagerAdapter = new ForecastPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+		getWindow().setBackgroundDrawableResource(R.color.background_default);
     }
 
 
