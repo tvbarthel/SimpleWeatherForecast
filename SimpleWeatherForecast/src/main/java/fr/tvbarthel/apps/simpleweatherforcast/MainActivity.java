@@ -41,15 +41,12 @@ public class MainActivity extends ActionBarActivity {
 		mViewPager.setOffscreenPageLimit(2);
 		mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			@Override
-			public void onPageScrolled(int i, float v, int i2) {
-				final GradientDrawable g = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
-						new int[]{getColor(i, v), getColor(i, (float) Math.sqrt(v))});
-				getWindow().setBackgroundDrawable(g);
+			public void onPageScrolled(int currentPosition, float positionOffset, int i2) {
+				setGradientBackgroundColor(currentPosition, positionOffset);
 			}
 
 			@Override
 			public void onPageSelected(int i) {
-
 			}
 
 			@Override
@@ -57,6 +54,13 @@ public class MainActivity extends ActionBarActivity {
 			}
 		});
 	}
+
+	private void setGradientBackgroundColor(int currentPosition, float positionOffset) {
+		final GradientDrawable g = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+				new int[]{getColor(currentPosition, positionOffset), getColor(currentPosition, (float) Math.sqrt(positionOffset))});
+		getWindow().setBackgroundDrawable(g);
+	}
+
 
 	private int getColor(int currentPosition, float positionOffset) {
 		//retrieve current color and next color relative to the current position.
