@@ -32,7 +32,7 @@ public class MainActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_main);
 
 		getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.argb(130, 0, 0, 0)));
-		getSupportActionBar().setIcon(null);
+		getSupportActionBar().setDisplayShowHomeEnabled(false);
 
 		mSectionsPagerAdapter = new ForecastPagerAdapter(getSupportFragmentManager());
 		mViewPager = (ViewPager) findViewById(R.id.pager);
