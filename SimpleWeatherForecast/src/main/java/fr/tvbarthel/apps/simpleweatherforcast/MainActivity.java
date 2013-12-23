@@ -53,9 +53,6 @@ public class MainActivity extends ActionBarActivity {
 			public void onPageScrollStateChanged(int i) {
 			}
 		});
-
-		mViewPager.setBackground(new ColorDrawable(Color.argb(60, 0, 0, 0)));
-
 	}
 
 	private int getColor(int currentPosition, float positionOffset) {
