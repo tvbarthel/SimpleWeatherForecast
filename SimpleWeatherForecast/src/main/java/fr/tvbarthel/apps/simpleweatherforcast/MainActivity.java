@@ -3,16 +3,18 @@ package fr.tvbarthel.apps.simpleweatherforcast;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.PageTransformer;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.nineoldandroids.view.ViewHelper;
 
 import java.util.Locale;
 
@@ -30,6 +32,7 @@ public class MainActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_main);
 
 		getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.argb(130, 0, 0, 0)));
+		getSupportActionBar().setIcon(null);
 
 		mSectionsPagerAdapter = new ForecastPagerAdapter(getSupportFragmentManager());
 		mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -108,43 +111,40 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 
-	public class ForecastPageTransformer implements ViewPager.PageTransformer {
+	public class ForecastPageTransformer implements PageTransformer {
 
 		public void transformPage(View view, float position) {
 			final int pageWidth = view.getWidth();
 
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-				if (position < -2.0) { // [-Infinity,-2.0)
-					// This page is way off-screen to the left.
-					view.setAlpha(0);
+			if (position < -2.0) { // [-Infinity,-2.0)
+				// This page is way off-screen to the left.
+				ViewHelper.setAlpha(view, 0);
 
-				} else if (position <= 2.0) { // [-2.0,2.0]
-					final float normalizedPosition = Math.abs(position / 2);
-					final float scaleFactor = 1f - normalizedPosition;
-					final float horizontalMargin = pageWidth * normalizedPosition;
+			} else if (position <= 2.0) { // [-2.0,2.0]
+				final float normalizedPosition = Math.abs(position / 2);
+				final float scaleFactor = 1f - normalizedPosition;
+				final float horizontalMargin = pageWidth * normalizedPosition;
 
-					//Translate back the page.
-					if (position < 0) {
-						//left
-						view.setTranslationX(horizontalMargin);
-					} else {
-						//right
-						view.setTranslationX(-horizontalMargin);
-					}
-
-					// Scale the page down relative to its size.
-					view.setScaleX((float) Math.pow(scaleFactor, 0.80));
-					view.setScaleY((float) Math.pow(scaleFactor, 0.80));
-
-					// Fade the page relative to its size.
-					view.setAlpha(1f * scaleFactor - (scaleFactor * 0.25f));
-
-				} else { // (2.0,+Infinity]
-					// This page is way off-screen to the right.
-					view.setAlpha(0);
+				//Translate back the page.
+				if (position < 0) {
+					//left
+					ViewHelper.setTranslationX(view, horizontalMargin);
+				} else {
+					//right
+					ViewHelper.setTranslationX(view, -horizontalMargin);
 				}
-			}
 
+				// Scale the page down relative to its size.
+				ViewHelper.setScaleX(view, (float) Math.pow(scaleFactor, 0.80));
+				ViewHelper.setScaleY(view, (float) Math.pow(scaleFactor, 0.80));
+
+				// Fade the page relative to its size.
+				ViewHelper.setAlpha(view, 1f * scaleFactor - (scaleFactor * 0.25f));
+
+			} else { // (2.0,+Infinity]
+				// This page is way off-screen to the right.
+				ViewHelper.setAlpha(view, 0);
+			}
 		}
 	}
 
