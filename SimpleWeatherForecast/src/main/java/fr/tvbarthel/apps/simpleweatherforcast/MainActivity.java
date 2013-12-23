@@ -1,5 +1,6 @@
 package fr.tvbarthel.apps.simpleweatherforcast;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
@@ -13,6 +14,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.nineoldandroids.view.ViewHelper;
 
@@ -25,6 +27,7 @@ public class MainActivity extends ActionBarActivity {
 
 	ForecastPagerAdapter mSectionsPagerAdapter;
 	ViewPager mViewPager;
+	TextView mActionBarTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,8 @@ public class MainActivity extends ActionBarActivity {
 
 		getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.argb(130, 0, 0, 0)));
 		getSupportActionBar().setDisplayShowHomeEnabled(false);
+
+		mActionBarTextView = getActionBarTitleTextView();
 
 		mSectionsPagerAdapter = new ForecastPagerAdapter(getSupportFragmentManager());
 		mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -43,6 +48,7 @@ public class MainActivity extends ActionBarActivity {
 			@Override
 			public void onPageScrolled(int currentPosition, float positionOffset, int i2) {
 				setGradientBackgroundColor(currentPosition, positionOffset);
+				updateActionBarTitle(currentPosition, positionOffset);
 			}
 
 			@Override
@@ -59,6 +65,40 @@ public class MainActivity extends ActionBarActivity {
 		final GradientDrawable g = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
 				new int[]{getColor(currentPosition, positionOffset), getColor(currentPosition, (float) Math.sqrt(positionOffset))});
 		getWindow().setBackgroundDrawable(g);
+	}
+
+	private void updateActionBarTitle(int currentPosition, float positionOffset) {
+		if (positionOffset < 0.5) {
+			getSupportActionBar().setTitle(getActionBarTitle(currentPosition));
+			ViewHelper.setAlpha(mActionBarTextView, 1 - positionOffset * 2);
+		} else {
+			getSupportActionBar().setTitle(getActionBarTitle(currentPosition + 1));
+			ViewHelper.setAlpha(mActionBarTextView, (positionOffset - 0.5f) * 2);
+		}
+	}
+
+	private TextView getActionBarTitleTextView() {
+		final Resources systemResources = Resources.getSystem();
+		TextView actionBarTitleTextView = new TextView(this);
+		if (systemResources != null) {
+			final int actionBarTitleViewId = systemResources.getIdentifier("action_bar_title", "id", "android");
+			final TextView actionBarTitleTextViewCandidate = (TextView) findViewById(actionBarTitleViewId);
+			if (actionBarTitleTextViewCandidate != null) {
+				actionBarTitleTextView = actionBarTitleTextViewCandidate;
+			}
+		}
+		return actionBarTitleTextView;
+	}
+
+	private String getActionBarTitle(int currentPosition) {
+		//TODO clear and use real values.
+		String title = "22/05/2012";
+		if (currentPosition == 0) {
+			title = "Today";
+		} else if (currentPosition == 1) {
+			title = "Tomorrow";
+		}
+		return title;
 	}
 
 
