@@ -33,7 +33,8 @@ public class DailyForecastJsonGetter extends AsyncTask<Void, Void, String> {
 		String result = null;
 		try {
 			//TODO use real location.
-			result = URLUtils.getAsString("http://api.openweathermap.org/data/2.5/forecast/daily?lat=35&lon=139&cnt=14&mode=json&APPID=c756ce72a59777bd32a5762e12e74057");
+			//TODO use real locale.
+			result = URLUtils.getAsString("http://api.openweathermap.org/data/2.5/forecast/daily?lat=45.833619&lon=1.261105&cnt=14&mode=json&lang=fr&units=metric&APPID=c756ce72a59777bd32a5762e12e74057");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
