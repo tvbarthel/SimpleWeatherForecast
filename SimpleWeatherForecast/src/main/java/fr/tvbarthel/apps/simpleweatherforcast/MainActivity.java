@@ -18,7 +18,9 @@ import android.widget.TextView;
 
 import com.nineoldandroids.view.ViewHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.ForecastFragment;
@@ -125,13 +127,9 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	private String getActionBarTitle(int currentPosition) {
-		//TODO clear and use real values.
-		String title = "22/05/2012";
-		if (currentPosition == 0) {
-			title = "Today";
-		} else if (currentPosition == 1) {
-			title = "Tomorrow";
-		}
+		final DailyForecastModel currentModel = mSectionsPagerAdapter.getModel(currentPosition);
+		final Date dateFromUnixTimeStamp = new Date(currentModel.getDateTime() * 1000);
+		String title = new SimpleDateFormat("EEEE dd/MM", Locale.getDefault()).format(dateFromUnixTimeStamp);
 		return title;
 	}
 
@@ -182,6 +180,9 @@ public class MainActivity extends ActionBarActivity {
 		}
 
 		public DailyForecastModel getModel(int position) {
+			if(position >= mDailyForecastModels.size()) {
+				return new DailyForecastModel();
+			}
 			return mDailyForecastModels.get(position);
 		}
 
