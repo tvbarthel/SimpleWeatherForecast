@@ -26,14 +26,16 @@ public class DailyForecastJsonParser extends AsyncTask<String, Void, ArrayList<D
 
 	private ArrayList<DailyForecastModel> parse(final String json) {
 		final ArrayList<DailyForecastModel> result = new ArrayList<DailyForecastModel>();
-		try {
-			JSONObject root = new JSONObject(json);
-			JSONArray weatherList = root.getJSONArray(TAG_WEATHER_LIST);
-			for (int i = 0; i < weatherList.length(); i++) {
-				result.add(parseDailyForecast(weatherList.getJSONObject(i)));
+		if(json != null) {
+			try {
+				JSONObject root = new JSONObject(json);
+				JSONArray weatherList = root.getJSONArray(TAG_WEATHER_LIST);
+				for (int i = 0; i < weatherList.length(); i++) {
+					result.add(parseDailyForecast(weatherList.getJSONObject(i)));
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
-		} catch (JSONException e) {
-			e.printStackTrace();
 		}
 		return result;
 	}
