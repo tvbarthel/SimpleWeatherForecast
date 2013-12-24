@@ -5,12 +5,14 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.PageTransformer;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +49,8 @@ public class MainActivity extends ActionBarActivity {
 		mActionBarTextView = getActionBarTitleTextView();
 
 		mSectionsPagerAdapter = new ForecastPagerAdapter(getSupportFragmentManager());
+
+
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		mViewPager.setPageTransformer(true, new ForecastPageTransformer());
@@ -82,6 +86,7 @@ public class MainActivity extends ActionBarActivity {
 			@Override
 			protected void onPostExecute(String newJsondailyForecast) {
 				super.onPostExecute(newJsondailyForecast);
+				Log.d("argonne", "newly loaded -> " + newJsondailyForecast);
 				loadDailyForecast(newJsondailyForecast);
 			}
 		}.execute();
@@ -93,8 +98,22 @@ public class MainActivity extends ActionBarActivity {
 			protected void onPostExecute(ArrayList<DailyForecastModel> dailyForecastModels) {
 				super.onPostExecute(dailyForecastModels);
 				mSectionsPagerAdapter.updateModels(dailyForecastModels);
+				invalidatePageTransformer();
 			}
 		}.execute(jsonDailyForecast);
+	}
+
+	//Trick to notify the pageTransformer of a data set change.
+	private void invalidatePageTransformer() {
+		new Handler().post(new Runnable() {
+			@Override
+			public void run() {
+				if (mViewPager.beginFakeDrag()) {
+					mViewPager.fakeDragBy(0f);
+					mViewPager.endFakeDrag();
+				}
+			}
+		});
 	}
 
 	private void setGradientBackgroundColor(int currentPosition, float positionOffset) {
@@ -180,7 +199,7 @@ public class MainActivity extends ActionBarActivity {
 		}
 
 		public DailyForecastModel getModel(int position) {
-			if(position >= mDailyForecastModels.size()) {
+			if (position >= mDailyForecastModels.size()) {
 				return new DailyForecastModel();
 			}
 			return mDailyForecastModels.get(position);
