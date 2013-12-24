@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.SharedPreferenceUtils;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.URLUtils;
 
-public class DailyForecastJsonGetter extends AsyncTask<Void, Void, Void> {
+public class DailyForecastJsonGetter extends AsyncTask<Void, Void, String> {
 
 	private Context mContext;
 
@@ -21,13 +21,12 @@ public class DailyForecastJsonGetter extends AsyncTask<Void, Void, Void> {
 	}
 
 	@Override
-	protected Void doInBackground(Void... params) {
+	protected String doInBackground(Void... params) {
 		String json = getJsonAsString();
 		if(json != null) {
 			SharedPreferenceUtils.storeWeather(mContext, json);
 		}
-		Log.d("argonne", json);
-		return null;
+		return json;
 	}
 
 	private String getJsonAsString() {

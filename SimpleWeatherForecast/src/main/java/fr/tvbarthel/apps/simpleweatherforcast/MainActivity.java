@@ -18,16 +18,21 @@ import android.widget.TextView;
 
 import com.nineoldandroids.view.ViewHelper;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.ForecastFragment;
+import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonGetter;
+import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonParser;
+import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastModel;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.ColorUtils;
+import fr.tvbarthel.apps.simpleweatherforcast.utils.SharedPreferenceUtils;
 
 public class MainActivity extends ActionBarActivity {
 
-	ForecastPagerAdapter mSectionsPagerAdapter;
-	ViewPager mViewPager;
-	TextView mActionBarTextView;
+	private ForecastPagerAdapter mSectionsPagerAdapter;
+	private ViewPager mViewPager;
+	private TextView mActionBarTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,35 @@ public class MainActivity extends ActionBarActivity {
 			public void onPageScrollStateChanged(int i) {
 			}
 		});
+
+		String lastKnownWeather = SharedPreferenceUtils.getLastKnownWeather(getApplicationContext());
+		if (lastKnownWeather != null) {
+			//TODO check if the weather is outdated.
+			loadDailyForecast(lastKnownWeather);
+		} else {
+			//TODO check if a connection is available.
+			updateDailyForecast();
+		}
+	}
+
+	private void updateDailyForecast() {
+		new DailyForecastJsonGetter(getApplicationContext()) {
+			@Override
+			protected void onPostExecute(String newJsondailyForecast) {
+				super.onPostExecute(newJsondailyForecast);
+				loadDailyForecast(newJsondailyForecast);
+			}
+		}.execute();
+	}
+
+	private void loadDailyForecast(String jsonDailyForecast) {
+		new DailyForecastJsonParser() {
+			@Override
+			protected void onPostExecute(ArrayList<DailyForecastModel> dailyForecastModels) {
+				super.onPostExecute(dailyForecastModels);
+				mSectionsPagerAdapter.updateModels(dailyForecastModels);
+			}
+		}.execute(jsonDailyForecast);
 	}
 
 	private void setGradientBackgroundColor(int currentPosition, float positionOffset) {
@@ -104,7 +138,7 @@ public class MainActivity extends ActionBarActivity {
 
 	private int getColor(int currentPosition, float positionOffset) {
 		//retrieve current color and next color relative to the current position.
-		final int colorSize = ColorUtils.COLORS.length - 1;
+		final int colorSize = ColorUtils.COLORS.length;
 		final int[] currentColor = ColorUtils.COLORS[(currentPosition) % colorSize];
 		final int[] nextColor = ColorUtils.COLORS[(currentPosition + 1) % colorSize];
 
@@ -134,19 +168,32 @@ public class MainActivity extends ActionBarActivity {
 
 	public class ForecastPagerAdapter extends FragmentPagerAdapter {
 
+		private final ArrayList<DailyForecastModel> mDailyForecastModels;
+
 		public ForecastPagerAdapter(FragmentManager fm) {
 			super(fm);
+			mDailyForecastModels = new ArrayList<DailyForecastModel>();
+		}
+
+		public void updateModels(ArrayList<DailyForecastModel> newModels) {
+			mDailyForecastModels.clear();
+			mDailyForecastModels.addAll(newModels);
+			notifyDataSetChanged();
+		}
+
+		public DailyForecastModel getModel(int position) {
+			return mDailyForecastModels.get(position);
 		}
 
 		@Override
 		public Fragment getItem(int position) {
-			return ForecastFragment.newInstance(position);
+			return ForecastFragment.newInstance(mDailyForecastModels.get(position));
 		}
 
 		@Override
 		public int getCount() {
 			// Show 14 total pages.
-			return 14;
+			return mDailyForecastModels.size();
 		}
 
 		@Override
