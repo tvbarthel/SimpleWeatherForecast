@@ -10,17 +10,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="22/05/2012"
-        android:id="@+id/fragment_forecast_date"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/text_palette_one"
-        android:textSize="@dimen/text_medium"
-        android:fontFamily="sans-serif-light" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="scattered cloud"
         android:id="@+id/fragment_forecast_weather_description"
         android:layout_gravity="center_horizontal"
