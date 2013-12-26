@@ -108,7 +108,8 @@ public class MainActivity extends ActionBarActivity {
 				}
 			}.execute(lastKnownLocation);
 		} else {
-			//TODO notify the user that no location has been retrieved.
+			//TODO don't use a hardcoded string.
+			makeTextToast("Please enable the access to your location.");
 		}
 
 	}
