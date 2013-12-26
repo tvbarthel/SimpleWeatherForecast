@@ -87,7 +87,6 @@ public class MainActivity extends ActionBarActivity {
 		super.onResume();
 		final String lastKnownWeather = SharedPreferenceUtils.getLastKnownWeather(getApplicationContext());
 		if (isWeatherOutdated(REFRESH_TIME_AUTO) || lastKnownWeather == null) {
-			//TODO check if a connection is available.
 			Log.d("argonne", "outdated");
 			updateDailyForecast();
 		} else {
