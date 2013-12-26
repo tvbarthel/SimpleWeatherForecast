@@ -32,6 +32,7 @@ import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonGe
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonParser;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastModel;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.ColorUtils;
+import fr.tvbarthel.apps.simpleweatherforcast.utils.ConnectivityUtils;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.LocationUtils;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.SharedPreferenceUtils;
 
@@ -97,21 +98,25 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	private void updateDailyForecast() {
-		final Location lastKnownLocation = LocationUtils.getLastKnownLocation(getApplicationContext());
-		if(lastKnownLocation != null) {
-			new DailyForecastJsonGetter(getApplicationContext()) {
-				@Override
-				protected void onPostExecute(String newJsondailyForecast) {
-					super.onPostExecute(newJsondailyForecast);
-					Log.d("argonne", "newly loaded -> " + newJsondailyForecast);
-					loadDailyForecast(newJsondailyForecast);
-				}
-			}.execute(lastKnownLocation);
+		if(ConnectivityUtils.isConnected(getApplicationContext())) {
+			final Location lastKnownLocation = LocationUtils.getLastKnownLocation(getApplicationContext());
+			if(lastKnownLocation != null) {
+				new DailyForecastJsonGetter(getApplicationContext()) {
+					@Override
+					protected void onPostExecute(String newJsondailyForecast) {
+						super.onPostExecute(newJsondailyForecast);
+						Log.d("argonne", "newly loaded -> " + newJsondailyForecast);
+						loadDailyForecast(newJsondailyForecast);
+					}
+				}.execute(lastKnownLocation);
+			} else {
+				//TODO don't use a hardcoded string.
+				makeTextToast("Please enable the access to your location.");
+			}
 		} else {
-			//TODO don't use a hardcoded string.
-			makeTextToast("Please enable the access to your location.");
+			//TODO don't use a hard coded string.
+			makeTextToast("Could not refresh weather, no connection available.");
 		}
-
 	}
 
 	@Override
