@@ -87,7 +87,7 @@ public class MainActivity extends ActionBarActivity {
 		final String lastKnownWeather = SharedPreferenceUtils.getLastKnownWeather(getApplicationContext());
 		final boolean isWeatherOutdated = System.currentTimeMillis() - lastUpdate > REFRESH_TIME_AUTO;
 
-		if(isWeatherOutdated || lastKnownWeather == null) {
+		if (isWeatherOutdated || lastKnownWeather == null) {
 			//TODO check if a connection is available.
 			Log.d("argonne", "outdated");
 			updateDailyForecast();
@@ -98,9 +98,9 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	private void updateDailyForecast() {
-		if(ConnectivityUtils.isConnected(getApplicationContext())) {
+		if (ConnectivityUtils.isConnected(getApplicationContext())) {
 			final Location lastKnownLocation = LocationUtils.getLastKnownLocation(getApplicationContext());
-			if(lastKnownLocation != null) {
+			if (lastKnownLocation != null) {
 				new DailyForecastJsonGetter(getApplicationContext()) {
 					@Override
 					protected void onPostExecute(String newJsondailyForecast) {
@@ -132,7 +132,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	private void hideToast() {
-		if(mTextToast != null) {
+		if (mTextToast != null) {
 			mTextToast.cancel();
 			mTextToast = null;
 		}
