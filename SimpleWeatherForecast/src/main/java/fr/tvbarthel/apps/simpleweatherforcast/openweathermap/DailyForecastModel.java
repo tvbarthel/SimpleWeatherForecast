@@ -9,6 +9,8 @@ public class DailyForecastModel implements Parcelable {
 	private long mDateTime;
 	private String mDescription;
 	private Double mTemperature;
+	private Double mMinTemperature;
+	private Double mMaxTemperature;
 	private int mHumidity;
 
 	public DailyForecastModel() {
@@ -50,6 +52,22 @@ public class DailyForecastModel implements Parcelable {
 		mTemperature = temperature;
 	}
 
+	public Double getMinTemperature() {
+		return mMinTemperature;
+	}
+
+	public void setMinTemperature(Double minTemperature) {
+		mMinTemperature = minTemperature;
+	}
+
+	public Double getMaxTemperature() {
+		return mMaxTemperature;
+	}
+
+	public void setMaxTemperature(Double maxTemperature) {
+		mMaxTemperature = maxTemperature;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -61,6 +79,8 @@ public class DailyForecastModel implements Parcelable {
 		dest.writeString(mDescription);
 		dest.writeInt(mHumidity);
 		dest.writeDouble(mTemperature);
+		dest.writeDouble(mMinTemperature);
+		dest.writeDouble(mMaxTemperature);
 	}
 
 	private void readFromParcel(Parcel in) {
@@ -68,6 +88,8 @@ public class DailyForecastModel implements Parcelable {
 		mDescription = in.readString();
 		mHumidity = in.readInt();
 		mTemperature = in.readDouble();
+		mMinTemperature = in.readDouble();
+		mMaxTemperature = in.readDouble();
 	}
 
 	public static final Parcelable.Creator<DailyForecastModel> CREATOR = new Parcelable.Creator<DailyForecastModel>() {
@@ -81,5 +103,6 @@ public class DailyForecastModel implements Parcelable {
 			return new DailyForecastModel[size];
 		}
 	};
+
 
 }
