@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import fr.tvbarthel.apps.simpleweatherforcast.fragments.AboutDialogFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.ForecastFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.LicenseDialogFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonGetter;
@@ -147,6 +148,8 @@ public class MainActivity extends ActionBarActivity {
 			return true;
 		} else if(id == R.id.menu_item_license) {
 			(new LicenseDialogFragment()).show(getSupportFragmentManager(), "dialog_license");
+		} else if(id == R.id.menu_item_about) {
+			(new AboutDialogFragment()).show(getSupportFragmentManager(), "dialog_about");
 		}
 		return super.onOptionsItemSelected(item);
 	}
