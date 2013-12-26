@@ -17,6 +17,8 @@ public class DailyForecastJsonParser extends AsyncTask<String, Void, ArrayList<D
 	private static String TAG_WEATHER_DESCRIPTION = "description";
 	private static String TAG_TEMPERATURE = "temp";
 	private static String TAG_TEMPERATURE_DAY = "day";
+	private static String TAG_TEMPERATURE_MIN = "min";
+	private static String TAG_TEMPERATURE_MAX = "max";
 	private static String TAG_DATE_TIME = "dt";
 
 	@Override
@@ -46,6 +48,8 @@ public class DailyForecastJsonParser extends AsyncTask<String, Void, ArrayList<D
 		model.setHumidity(parseHumidity(jsonDailyForecast));
 		model.setDescription(parseWeatherDescription(jsonDailyForecast));
 		model.setTemperature(parseDayTemperature(jsonDailyForecast));
+		model.setMinTemperature(parseMinTemperature(jsonDailyForecast));
+		model.setMaxTemperature(parseMaxTemperature(jsonDailyForecast));
 		return model;
 	}
 
@@ -57,6 +61,28 @@ public class DailyForecastJsonParser extends AsyncTask<String, Void, ArrayList<D
 			exception.printStackTrace();
 		}
 		return dayTemperature;
+	}
+
+	private Double parseMinTemperature(JSONObject dailyForecast) {
+		//TODO factorize.
+		Double minTemperature = 0d;
+		try {
+			minTemperature = dailyForecast.getJSONObject(TAG_TEMPERATURE).getDouble(TAG_TEMPERATURE_MIN);
+		} catch (JSONException exception) {
+			exception.printStackTrace();
+		}
+		return minTemperature;
+	}
+
+	private Double parseMaxTemperature(JSONObject dailyForecast) {
+		//TODO factorize.
+		Double maxTemperature = 0d;
+		try {
+			maxTemperature = dailyForecast.getJSONObject(TAG_TEMPERATURE).getDouble(TAG_TEMPERATURE_MAX);
+		} catch (JSONException exception) {
+			exception.printStackTrace();
+		}
+		return maxTemperature;
 	}
 
 	private String parseWeatherDescription(JSONObject dailyForecast) {
