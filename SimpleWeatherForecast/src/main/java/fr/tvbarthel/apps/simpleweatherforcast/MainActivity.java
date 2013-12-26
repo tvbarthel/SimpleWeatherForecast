@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.ForecastFragment;
+import fr.tvbarthel.apps.simpleweatherforcast.fragments.LicenseDialogFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonGetter;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonParser;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastModel;
@@ -144,6 +145,8 @@ public class MainActivity extends ActionBarActivity {
 				makeTextToast("Already up to date.");
 			}
 			return true;
+		} else if(id == R.id.menu_item_license) {
+			(new LicenseDialogFragment()).show(getSupportFragmentManager(), "dialog_license");
 		}
 		return super.onOptionsItemSelected(item);
 	}

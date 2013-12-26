@@ -8,4 +8,9 @@
         android:orderInCategory="1"
         app:showAsAction="never" />
 
+    <item android:id="@+id/menu_item_license"
+        android:title="License"
+        android:orderInCategory="3"
+        app:showAsAction="never" />
+
 </menu>
