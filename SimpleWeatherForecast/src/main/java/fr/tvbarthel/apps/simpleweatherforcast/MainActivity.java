@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,7 @@ import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonGe
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonParser;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastModel;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.ColorUtils;
+import fr.tvbarthel.apps.simpleweatherforcast.utils.LocationUtils;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.SharedPreferenceUtils;
 
 public class MainActivity extends ActionBarActivity {
@@ -93,14 +95,20 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	private void updateDailyForecast() {
-		new DailyForecastJsonGetter(getApplicationContext()) {
-			@Override
-			protected void onPostExecute(String newJsondailyForecast) {
-				super.onPostExecute(newJsondailyForecast);
-				Log.d("argonne", "newly loaded -> " + newJsondailyForecast);
-				loadDailyForecast(newJsondailyForecast);
-			}
-		}.execute();
+		final Location lastKnownLocation = LocationUtils.getLastKnownLocation(getApplicationContext());
+		if(lastKnownLocation != null) {
+			new DailyForecastJsonGetter(getApplicationContext()) {
+				@Override
+				protected void onPostExecute(String newJsondailyForecast) {
+					super.onPostExecute(newJsondailyForecast);
+					Log.d("argonne", "newly loaded -> " + newJsondailyForecast);
+					loadDailyForecast(newJsondailyForecast);
+				}
+			}.execute(lastKnownLocation);
+		} else {
+			//TODO notify the user that no location has been retrieved.
+		}
+
 	}
 
 	private void loadDailyForecast(String jsonDailyForecast) {

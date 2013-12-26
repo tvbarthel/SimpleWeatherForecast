@@ -18,7 +18,6 @@ public class LocationUtils {
 		if (providerName != null) {
 			lastKnownLocation = locationManager.getLastKnownLocation(providerName);
 		}
-
 		return lastKnownLocation;
 	}
 }
