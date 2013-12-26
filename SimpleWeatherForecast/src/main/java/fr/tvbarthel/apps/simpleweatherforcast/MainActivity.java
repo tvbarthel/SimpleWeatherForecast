@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nineoldandroids.view.ViewHelper;
 
@@ -41,6 +42,7 @@ public class MainActivity extends ActionBarActivity {
 	private ForecastPagerAdapter mSectionsPagerAdapter;
 	private ViewPager mViewPager;
 	private TextView mActionBarTextView;
+	private Toast mTextToast;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +111,25 @@ public class MainActivity extends ActionBarActivity {
 			//TODO notify the user that no location has been retrieved.
 		}
 
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		hideToast();
+	}
+
+	private void makeTextToast(String message) {
+		hideToast();
+		mTextToast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
+		mTextToast.show();
+	}
+
+	private void hideToast() {
+		if(mTextToast != null) {
+			mTextToast.cancel();
+			mTextToast = null;
+		}
 	}
 
 	private void loadDailyForecast(String jsonDailyForecast) {
