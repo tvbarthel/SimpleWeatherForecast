@@ -136,9 +136,7 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		} else if (id == R.id.menu_item_manual_refresh) {
+		if (id == R.id.menu_item_manual_refresh) {
 			if (isWeatherOutdated(REFRESH_TIME_MANUAL)) {
 				updateDailyForecast();
 			} else {
