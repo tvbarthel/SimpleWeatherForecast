@@ -47,42 +47,44 @@ public class DailyForecastJsonParser extends AsyncTask<String, Void, ArrayList<D
 		model.setDateTime(parseDateTime(jsonDailyForecast));
 		model.setHumidity(parseHumidity(jsonDailyForecast));
 		model.setDescription(parseWeatherDescription(jsonDailyForecast));
-		model.setTemperature(parseDayTemperature(jsonDailyForecast));
-		model.setMinTemperature(parseMinTemperature(jsonDailyForecast));
-		model.setMaxTemperature(parseMaxTemperature(jsonDailyForecast));
+		parseTemperature(model, jsonDailyForecast);
 		return model;
 	}
 
-	private Double parseDayTemperature(JSONObject dailyForecast) {
-		Double dayTemperature = 0d;
+	private void parseTemperature(DailyForecastModel model, JSONObject dailyForecast) {
 		try {
-			dayTemperature = dailyForecast.getJSONObject(TAG_TEMPERATURE).getDouble(TAG_TEMPERATURE_DAY);
+			JSONObject jsonTemperature = dailyForecast.getJSONObject(TAG_TEMPERATURE);
+			model.setTemperature(parseDayTemperature(jsonTemperature));
+			model.setMinTemperature(parseMinTemperature(jsonTemperature));
+			model.setMaxTemperature(parseMaxTemperature(jsonTemperature));
 		} catch (JSONException exception) {
 			exception.printStackTrace();
+			model.setTemperature(0d);
+			model.setMinTemperature(0d);
+			model.setMaxTemperature(0d);
 		}
-		return dayTemperature;
 	}
 
-	private Double parseMinTemperature(JSONObject dailyForecast) {
-		//TODO factorize.
-		Double minTemperature = 0d;
-		try {
-			minTemperature = dailyForecast.getJSONObject(TAG_TEMPERATURE).getDouble(TAG_TEMPERATURE_MIN);
-		} catch (JSONException exception) {
-			exception.printStackTrace();
-		}
-		return minTemperature;
+	private Double parseDayTemperature(JSONObject temperature) {
+		return parseDouble(temperature, TAG_TEMPERATURE_DAY, 0d);
 	}
 
-	private Double parseMaxTemperature(JSONObject dailyForecast) {
-		//TODO factorize.
-		Double maxTemperature = 0d;
+	private Double parseMinTemperature(JSONObject temperature) {
+		return parseDouble(temperature, TAG_TEMPERATURE_MIN, 0d);
+	}
+
+	private Double parseMaxTemperature(JSONObject temperature) {
+		return parseDouble(temperature, TAG_TEMPERATURE_MAX, 0d);
+	}
+
+
+	private Double parseDouble(JSONObject object, String tag, Double defaultValue) {
 		try {
-			maxTemperature = dailyForecast.getJSONObject(TAG_TEMPERATURE).getDouble(TAG_TEMPERATURE_MAX);
+			return object.getDouble(tag);
 		} catch (JSONException exception) {
 			exception.printStackTrace();
+			return defaultValue;
 		}
-		return maxTemperature;
 	}
 
 	private String parseWeatherDescription(JSONObject dailyForecast) {
