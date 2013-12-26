@@ -38,7 +38,8 @@ import fr.tvbarthel.apps.simpleweatherforcast.utils.SharedPreferenceUtils;
 
 public class MainActivity extends ActionBarActivity {
 
-	private static final long REFRESH_TIME_AUTO = 1000 * 60 * 60 * 3; // 3 hours in millis.
+	private static final long REFRESH_TIME_AUTO = 1000 * 60 * 60 * 2; // 2 hours in millis.
+	private static final long REFRESH_TIME_MANUAL = 1000 * 60 * 10; // 10 minutes.
 
 	private ForecastPagerAdapter mSectionsPagerAdapter;
 	private ViewPager mViewPager;
@@ -82,12 +83,8 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-
-		final long lastUpdate = SharedPreferenceUtils.getLastUpdate(getApplicationContext());
 		final String lastKnownWeather = SharedPreferenceUtils.getLastKnownWeather(getApplicationContext());
-		final boolean isWeatherOutdated = System.currentTimeMillis() - lastUpdate > REFRESH_TIME_AUTO;
-
-		if (isWeatherOutdated || lastKnownWeather == null) {
+		if (isWeatherOutdated(REFRESH_TIME_AUTO) || lastKnownWeather == null) {
 			//TODO check if a connection is available.
 			Log.d("argonne", "outdated");
 			updateDailyForecast();
@@ -95,6 +92,11 @@ public class MainActivity extends ActionBarActivity {
 			Log.d("argonne", "up to date");
 			loadDailyForecast(lastKnownWeather);
 		}
+	}
+
+	private boolean isWeatherOutdated(long refreshTimeInMillis) {
+		final long lastUpdate = SharedPreferenceUtils.getLastUpdate(getApplicationContext());
+		return System.currentTimeMillis() - lastUpdate > refreshTimeInMillis;
 	}
 
 	private void updateDailyForecast() {
@@ -123,6 +125,29 @@ public class MainActivity extends ActionBarActivity {
 	protected void onPause() {
 		super.onPause();
 		hideToast();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		} else if (id == R.id.menu_item_manual_refresh) {
+			if (isWeatherOutdated(REFRESH_TIME_MANUAL)) {
+				updateDailyForecast();
+			} else {
+				//TODO don't use hard coded string.
+				makeTextToast("Already up to date.");
+			}
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void makeTextToast(String message) {
@@ -212,22 +237,6 @@ public class MainActivity extends ActionBarActivity {
 
 		return Color.argb(255, currentColor[0] + deltaR, currentColor[1] + deltaG, currentColor[2] + deltaB);
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
 
 	public class ForecastPagerAdapter extends FragmentPagerAdapter {
 

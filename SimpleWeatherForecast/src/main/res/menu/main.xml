@@ -2,7 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="fr.tvbarthel.apps.simpleweatherforcast.MainActivity" >
-    
+
+    <item android:id="@+id/menu_item_manual_refresh"
+        android:title="Refresh"
+        android:orderInCategory="1"
+        app:showAsAction="never" />
+
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
