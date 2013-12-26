@@ -72,6 +72,11 @@ public class MainActivity extends ActionBarActivity {
 			public void onPageScrollStateChanged(int i) {
 			}
 		});
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 
 		final long lastUpdate = SharedPreferenceUtils.getLastUpdate(getApplicationContext());
 		final String lastKnownWeather = SharedPreferenceUtils.getLastKnownWeather(getApplicationContext());
@@ -79,8 +84,10 @@ public class MainActivity extends ActionBarActivity {
 
 		if(isWeatherOutdated || lastKnownWeather == null) {
 			//TODO check if a connection is available.
+			Log.d("argonne", "outdated");
 			updateDailyForecast();
 		} else {
+			Log.d("argonne", "up to date");
 			loadDailyForecast(lastKnownWeather);
 		}
 	}
