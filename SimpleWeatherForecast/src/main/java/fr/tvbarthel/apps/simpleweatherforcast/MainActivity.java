@@ -34,6 +34,8 @@ import fr.tvbarthel.apps.simpleweatherforcast.utils.SharedPreferenceUtils;
 
 public class MainActivity extends ActionBarActivity {
 
+	private static final long REFRESH_TIME_AUTO = 1000 * 60 * 60 * 3; // 3 hours in millis.
+
 	private ForecastPagerAdapter mSectionsPagerAdapter;
 	private ViewPager mViewPager;
 	private TextView mActionBarTextView;
@@ -71,13 +73,15 @@ public class MainActivity extends ActionBarActivity {
 			}
 		});
 
-		String lastKnownWeather = SharedPreferenceUtils.getLastKnownWeather(getApplicationContext());
-		if (lastKnownWeather != null) {
-			//TODO check if the weather is outdated.
-			loadDailyForecast(lastKnownWeather);
-		} else {
+		final long lastUpdate = SharedPreferenceUtils.getLastUpdate(getApplicationContext());
+		final String lastKnownWeather = SharedPreferenceUtils.getLastKnownWeather(getApplicationContext());
+		final boolean isWeatherOutdated = System.currentTimeMillis() - lastUpdate > REFRESH_TIME_AUTO;
+
+		if(isWeatherOutdated || lastKnownWeather == null) {
 			//TODO check if a connection is available.
 			updateDailyForecast();
+		} else {
+			loadDailyForecast(lastKnownWeather);
 		}
 	}
 
