@@ -34,14 +34,20 @@ public class ForecastFragment extends Fragment {
 			((TextView) v.findViewById(R.id.fragment_forecast_day_temperature))
 					.setText(String.valueOf(Math.round(dailyForecastModel.getTemperature())) + "°C");
 
+			/* Not sure if people really want to see the humidity ~
 			final int humidity = dailyForecastModel.getHumidity();
 			if(humidity != 0) {
 				((TextView) v.findViewById(R.id.fragment_forecast_humidity))
-						.setText("Humidité " + String.valueOf(humidity) + "%");
+						.setText("Humidity " + String.valueOf(humidity) + "%");
 			} else {
 				(v.findViewById(R.id.fragment_forecast_humidity))
 						.setVisibility(View.GONE);
-			}
+			}*/
+
+			final String minTemperature = String.valueOf(Math.round(dailyForecastModel.getMinTemperature()));
+			final String maxTemperature = String.valueOf(Math.round(dailyForecastModel.getMaxTemperature()));
+
+			((TextView) v.findViewById(R.id.fragment_forecast_min_max)).setText(minTemperature + " ~ " + maxTemperature);
 
 			((TextView) v.findViewById(R.id.fragment_forecast_weather_description))
 					.setText(dailyForecastModel.getDescription());
