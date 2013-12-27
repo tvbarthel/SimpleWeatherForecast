@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.PageTransformer;
 import android.support.v7.app.ActionBarActivity;
@@ -145,9 +145,9 @@ public class MainActivity extends ActionBarActivity {
 				makeTextToast("Already up to date.");
 			}
 			return true;
-		} else if(id == R.id.menu_item_license) {
+		} else if (id == R.id.menu_item_license) {
 			(new LicenseDialogFragment()).show(getSupportFragmentManager(), "dialog_license");
-		} else if(id == R.id.menu_item_about) {
+		} else if (id == R.id.menu_item_about) {
 			(new AboutDialogFragment()).show(getSupportFragmentManager(), "dialog_about");
 		}
 		return super.onOptionsItemSelected(item);
@@ -241,7 +241,7 @@ public class MainActivity extends ActionBarActivity {
 		return Color.argb(255, currentColor[0] + deltaR, currentColor[1] + deltaG, currentColor[2] + deltaB);
 	}
 
-	public class ForecastPagerAdapter extends FragmentPagerAdapter {
+	public class ForecastPagerAdapter extends FragmentStatePagerAdapter {
 
 		private final ArrayList<DailyForecastModel> mDailyForecastModels;
 
@@ -269,14 +269,13 @@ public class MainActivity extends ActionBarActivity {
 		}
 
 		@Override
-		public int getCount() {
-			// Show 14 total pages.
-			return mDailyForecastModels.size();
+		public int getItemPosition(Object object) {
+			return POSITION_NONE;
 		}
 
 		@Override
-		public CharSequence getPageTitle(int position) {
-			return ("Section " + String.valueOf(position)).toUpperCase(Locale.getDefault());
+		public int getCount() {
+			return mDailyForecastModels.size();
 		}
 	}
 
