@@ -7,7 +7,7 @@ A simple application that gives you the weather forecast for 14 days according t
 
 License
 =====================
-Copyright (C) 2013 tvbarthel
+Copyright (C) 2014 tvbarthel
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
