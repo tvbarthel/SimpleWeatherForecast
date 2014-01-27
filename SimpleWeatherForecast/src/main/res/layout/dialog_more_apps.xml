@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="More Apps"
+            android:id="@+id/textView"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/holo_blue" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Simple Thermometer"
+            android:id="@+id/dialog_more_apps_simplethermometer"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Chase Whisply"
+            android:id="@+id/dialog_more_apps_chasewhisply"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+</ScrollView>

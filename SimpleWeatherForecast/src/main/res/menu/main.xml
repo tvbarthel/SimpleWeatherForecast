@@ -18,5 +18,10 @@
         android:orderInCategory="3"
         app:showAsAction="never" />
 
+    <item android:id="@+id/menu_item_more_apps"
+        android:title="More Apps"
+        android:orderInCategory="4"
+        app:showAsAction="never" />
+
 
 </menu>
