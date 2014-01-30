@@ -4,4 +4,7 @@
     <color name="text_palette_one">#FFFFFF</color>
     <color name="background_view_pager">#3C000000</color>
     <color name="holo_blue">#33B5E5</color>
+    <color name="text_more_apps_on">#66000000</color>
+    <color name="text_more_apps_off">#FF000000</color>
+
 </resources>

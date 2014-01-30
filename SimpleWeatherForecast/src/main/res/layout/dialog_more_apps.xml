@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="More Apps"
+            android:text="@string/dialog_more_apps_title"
             android:id="@+id/textView"
             android:fontFamily="sans-serif-light"
             android:textColor="@color/holo_blue" />
@@ -23,18 +23,20 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Simple Thermometer"
             android:id="@+id/dialog_more_apps_simplethermometer"
+            android:text="@string/dialog_more_apps_simplethermometer_app_name"
             android:fontFamily="sans-serif-light"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:textColor="@drawable/text_color_more_apps_link" />
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Chase Whisply"
-            android:id="@+id/dialog_more_apps_chasewhisply"
+            android:id="@+id/dialog_more_apps_chase_whisply"
+            android:text="@string/dialog_more_apps_chase_whisply_app_name"
             android:fontFamily="sans-serif-light"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:textColor="@drawable/text_color_more_apps_link" />
     </LinearLayout>
 </ScrollView>
