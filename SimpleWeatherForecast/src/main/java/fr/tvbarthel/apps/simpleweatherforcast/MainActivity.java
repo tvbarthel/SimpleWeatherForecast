@@ -31,6 +31,7 @@ import fr.tvbarthel.apps.simpleweatherforcast.fragments.AboutDialogFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.ForecastFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.LicenseDialogFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.MoreAppsDialogFragment;
+import fr.tvbarthel.apps.simpleweatherforcast.fragments.TemperatureUnitPickerDialogFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonGetter;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonParser;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastModel;
@@ -156,6 +157,11 @@ public class MainActivity extends ActionBarActivity {
 			(new AboutDialogFragment()).show(getSupportFragmentManager(), "dialog_about");
 		} else if (id == R.id.menu_item_more_apps) {
 			(new MoreAppsDialogFragment()).show(getSupportFragmentManager(), "dialog_more_apps");
+		} else if (id == R.id.menu_item_unit_picker) {
+			final String[] temperatureUnitNames = getResources().getStringArray(R.array.temperature_unit_names);
+			final String[] temperatureUnitSymbols = getResources().getStringArray(R.array.temperature_unit_symbols);
+			(TemperatureUnitPickerDialogFragment.newInstance(temperatureUnitNames, temperatureUnitSymbols))
+					.show(getSupportFragmentManager(), "dialog_unit_picker");
 		}
 		return super.onOptionsItemSelected(item);
 	}

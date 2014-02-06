@@ -1,26 +1,36 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="fr.tvbarthel.apps.simpleweatherforcast.MainActivity" >
+    tools:context="fr.tvbarthel.apps.simpleweatherforcast.MainActivity">
 
-    <item android:id="@+id/menu_item_manual_refresh"
+    <item
+        android:id="@+id/menu_item_manual_refresh"
         android:title="Refresh"
         android:orderInCategory="1"
         app:showAsAction="never" />
 
-    <item android:id="@+id/menu_item_about"
-        android:title="About"
+    <item
+        android:id="@+id/menu_item_unit_picker"
+        android:title="Set Unit"
         android:orderInCategory="2"
         app:showAsAction="never" />
 
-    <item android:id="@+id/menu_item_license"
-        android:title="License"
+    <item
+        android:id="@+id/menu_item_about"
+        android:title="About"
         android:orderInCategory="3"
         app:showAsAction="never" />
 
-    <item android:id="@+id/menu_item_more_apps"
-        android:title="More Apps"
+    <item
+        android:id="@+id/menu_item_license"
+        android:title="License"
         android:orderInCategory="4"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_item_more_apps"
+        android:title="More Apps"
+        android:orderInCategory="5"
         app:showAsAction="never" />
 
 
