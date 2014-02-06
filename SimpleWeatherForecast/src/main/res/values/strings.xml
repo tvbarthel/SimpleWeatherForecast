@@ -19,5 +19,13 @@
     <string name="dialog_more_apps_chase_whisply_app_name">Chase Whisply</string>
     <string name="dialog_more_apps_chase_whisply_package_name">fr.tvbarthel.games.chasewhisply</string>
 
+    <!-- Temperature Units -->
+    <string name="temperature_unit_celsius">Celsius</string>
+    <string name="temperature_unit_celsius_symbol">°C</string>
+    <string name="temperature_unit_kelvin">Kelvin</string>
+    <string name="temperature_unit_kelvin_symbol">K</string>
+    <string name="temperature_unit_fahrenheit">Fahrenheit</string>
+    <string name="temperature_unit_fahrenheit_symbol">°F</string>
+
     <string name="dialog_ok">OK</string>
 </resources>
