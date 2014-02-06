@@ -195,7 +195,7 @@ public class MainActivity extends ActionBarActivity {
 
 	private void setGradientBackgroundColor(int currentPosition, float positionOffset) {
 		final GradientDrawable g = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
-				new int[]{getColor(currentPosition, positionOffset), getColor(currentPosition, (float) Math.sqrt(positionOffset))});
+				new int[]{getColor(currentPosition, positionOffset), getColor(currentPosition, (float) Math.pow(positionOffset, 0.40))});
 		getWindow().setBackgroundDrawable(g);
 	}
 
