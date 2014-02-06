@@ -87,12 +87,16 @@ public class MainActivity extends ActionBarActivity {
 	protected void onResume() {
 		super.onResume();
 		final String lastKnownWeather = SharedPreferenceUtils.getLastKnownWeather(getApplicationContext());
+
+		//Load the last known weather
+		loadDailyForecast(lastKnownWeather);
+
+		//Check if the last known weather is out dated.
 		if (isWeatherOutdated(REFRESH_TIME_AUTO) || lastKnownWeather == null) {
 			Log.d("argonne", "outdated");
 			updateDailyForecast();
 		} else {
 			Log.d("argonne", "up to date");
-			loadDailyForecast(lastKnownWeather);
 		}
 	}
 
@@ -170,14 +174,16 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	private void loadDailyForecast(String jsonDailyForecast) {
-		new DailyForecastJsonParser() {
-			@Override
-			protected void onPostExecute(ArrayList<DailyForecastModel> dailyForecastModels) {
-				super.onPostExecute(dailyForecastModels);
-				mSectionsPagerAdapter.updateModels(dailyForecastModels);
-				invalidatePageTransformer();
-			}
-		}.execute(jsonDailyForecast);
+		if (jsonDailyForecast != null) {
+			new DailyForecastJsonParser() {
+				@Override
+				protected void onPostExecute(ArrayList<DailyForecastModel> dailyForecastModels) {
+					super.onPostExecute(dailyForecastModels);
+					mSectionsPagerAdapter.updateModels(dailyForecastModels);
+					invalidatePageTransformer();
+				}
+			}.execute(jsonDailyForecast);
+		}
 	}
 
 	//Trick to notify the pageTransformer of a data set change.
