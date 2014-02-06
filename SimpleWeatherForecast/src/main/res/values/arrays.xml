@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Temperature unit names -->
+    <string-array name="temperature_name">
+        <item>@string/temperature_unit_celsius</item>
+        <item>@string/temperature_unit_fahrenheit</item>
+        <item>@string/temperature_unit_kelvin</item>
+    </string-array>
+
+    <!-- Temperature unit symbols -->
+    <string-array name="pref_temperature_unit_symbols">
+        <item>@string/temperature_unit_celsius_symbol</item>
+        <item>@string/temperature_unit_fahrenheit_symbol</item>
+        <item>@string/temperature_unit_kelvin_symbol</item>
+    </string-array>
+</resources>
