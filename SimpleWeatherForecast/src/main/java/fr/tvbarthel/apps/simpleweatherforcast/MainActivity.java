@@ -202,15 +202,17 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
 	//Trick to notify the pageTransformer of a data set change.
 	private void invalidatePageTransformer() {
-		new Handler().post(new Runnable() {
-			@Override
-			public void run() {
-				if (mViewPager.beginFakeDrag()) {
-					mViewPager.fakeDragBy(0f);
-					mViewPager.endFakeDrag();
+		if (mViewPager.getAdapter().getCount() > 0) {
+			new Handler().post(new Runnable() {
+				@Override
+				public void run() {
+					if (mViewPager.beginFakeDrag()) {
+						mViewPager.fakeDragBy(0f);
+						mViewPager.endFakeDrag();
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 
 	private void setGradientBackgroundColor(int currentPosition, float positionOffset) {
