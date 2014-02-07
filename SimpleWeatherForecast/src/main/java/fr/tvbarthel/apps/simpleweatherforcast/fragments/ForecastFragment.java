@@ -16,11 +16,13 @@ import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastModel;
 public class ForecastFragment extends Fragment {
 
 	public static String ARGUMENT_MODEL = "ForecastFragment.DailyForecastModel";
+	public static String ARGUMENT_TEMPERATURE_UNIT = "ForecastFragment.TemperatureUnit";
 
-	public static ForecastFragment newInstance(DailyForecastModel model) {
+	public static ForecastFragment newInstance(DailyForecastModel model, String temperatureUnit) {
 		final ForecastFragment instance = new ForecastFragment();
 		final Bundle arguments = new Bundle();
 		arguments.putParcelable(ARGUMENT_MODEL, model);
+		arguments.putString(ARGUMENT_TEMPERATURE_UNIT, temperatureUnit);
 		instance.setArguments(arguments);
 		return instance;
 	}
@@ -28,10 +30,12 @@ public class ForecastFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View v = inflater.inflate(R.layout.fragment_forecast, container, false);
-		final DailyForecastModel dailyForecastModel = getArguments().getParcelable(ARGUMENT_MODEL);
+		final Bundle arguments = getArguments();
+		final DailyForecastModel dailyForecastModel = arguments.getParcelable(ARGUMENT_MODEL);
+		final String temperatureUnit = arguments.getString(ARGUMENT_TEMPERATURE_UNIT);
 		if (dailyForecastModel != null) {
 			((TextView) v.findViewById(R.id.fragment_forecast_day_temperature))
-					.setText(String.valueOf(Math.round(dailyForecastModel.getTemperature())) + "°C");
+					.setText(String.valueOf(convertTemperature(dailyForecastModel.getTemperature(), temperatureUnit)) + temperatureUnit);
 
 			/* Not sure if people really want to see the humidity ~
 			final int humidity = dailyForecastModel.getHumidity();
@@ -43,8 +47,8 @@ public class ForecastFragment extends Fragment {
 						.setVisibility(View.GONE);
 			}*/
 
-			final String minTemperature = String.valueOf(Math.round(dailyForecastModel.getMinTemperature()));
-			final String maxTemperature = String.valueOf(Math.round(dailyForecastModel.getMaxTemperature()));
+			final String minTemperature = String.valueOf(convertTemperature(dailyForecastModel.getMinTemperature(), temperatureUnit));
+			final String maxTemperature = String.valueOf(convertTemperature(dailyForecastModel.getMaxTemperature(), temperatureUnit));
 
 			((TextView) v.findViewById(R.id.fragment_forecast_min_max)).setText(minTemperature + " ~ " + maxTemperature);
 
@@ -52,5 +56,15 @@ public class ForecastFragment extends Fragment {
 					.setText(dailyForecastModel.getDescription());
 		}
 		return v;
+	}
+
+	private long convertTemperature(double temperatureInCelsius, String temperatureUnit) {
+		double temperatureConverted = temperatureInCelsius;
+		if (temperatureUnit.equals(getString(R.string.temperature_unit_fahrenheit_symbol))) {
+			temperatureConverted = temperatureInCelsius * 1.8f + 32f;
+		} else if (temperatureUnit.equals(getString(R.string.temperature_unit_kelvin_symbol))) {
+			temperatureConverted = temperatureInCelsius + 273.15f;
+		}
+		return Math.round(temperatureConverted);
 	}
 }

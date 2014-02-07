@@ -1,5 +1,6 @@
 package fr.tvbarthel.apps.simpleweatherforcast;
 
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -40,7 +41,7 @@ import fr.tvbarthel.apps.simpleweatherforcast.utils.ConnectivityUtils;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.LocationUtils;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.SharedPreferenceUtils;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 	private static final long REFRESH_TIME_AUTO = 1000 * 60 * 60 * 2; // 2 hours in millis.
 	private static final long REFRESH_TIME_MANUAL = 1000 * 60 * 10; // 10 minutes.
@@ -49,11 +50,15 @@ public class MainActivity extends ActionBarActivity {
 	private ViewPager mViewPager;
 	private TextView mActionBarTextView;
 	private Toast mTextToast;
+	private String mTemperatureUnit;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		mTemperatureUnit = SharedPreferenceUtils.getTemperatureUnitSymbol(this);
+
 
 		getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.argb(130, 0, 0, 0)));
 		getSupportActionBar().setDisplayShowHomeEnabled(false);
@@ -88,6 +93,8 @@ public class MainActivity extends ActionBarActivity {
 	protected void onResume() {
 		super.onResume();
 		final String lastKnownWeather = SharedPreferenceUtils.getLastKnownWeather(getApplicationContext());
+
+		SharedPreferenceUtils.registerOnSharedPreferenceChangeListener(this, this);
 
 		//Load the last known weather
 		loadDailyForecast(lastKnownWeather);
@@ -131,6 +138,7 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		SharedPreferenceUtils.unregisterOnSharedPreferenceChangeListener(this, this);
 		hideToast();
 	}
 
@@ -256,6 +264,16 @@ public class MainActivity extends ActionBarActivity {
 		return Color.argb(255, currentColor[0] + deltaR, currentColor[1] + deltaG, currentColor[2] + deltaB);
 	}
 
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+		Log.d("argonne", "hi ! -> " + key);
+		if (key.equals(SharedPreferenceUtils.KEY_TEMPERATURE_UNIT_SYMBOL)) {
+			mTemperatureUnit = SharedPreferenceUtils.getTemperatureUnitSymbol(this);
+			mSectionsPagerAdapter.notifyDataSetChanged();
+			invalidatePageTransformer();
+		}
+	}
+
 	public class ForecastPagerAdapter extends FragmentStatePagerAdapter {
 
 		private final ArrayList<DailyForecastModel> mDailyForecastModels;
@@ -280,7 +298,7 @@ public class MainActivity extends ActionBarActivity {
 
 		@Override
 		public Fragment getItem(int position) {
-			return ForecastFragment.newInstance(mDailyForecastModels.get(position));
+			return ForecastFragment.newInstance(mDailyForecastModels.get(position), mTemperatureUnit);
 		}
 
 		@Override

@@ -9,9 +9,9 @@ import android.preference.PreferenceManager;
 import fr.tvbarthel.apps.simpleweatherforcast.R;
 
 public class SharedPreferenceUtils {
-	private static String KEY_LAST_UPDATE = "SharedPreferenceUtils.Key.LastUpdate";
-	private static String KEY_LAST_KNOWN_JSON_WEATHER = "SharedPreferenceUtils.Key.LastKnownJsonWeather";
-	private static String KEY_TEMPERATURE_UNIT_SYMBOL = "SharedPreferenceUtils.Key.TemperatureUnitSymbol";
+	public static String KEY_LAST_UPDATE = "SharedPreferenceUtils.Key.LastUpdate";
+	public static String KEY_LAST_KNOWN_JSON_WEATHER = "SharedPreferenceUtils.Key.LastKnownJsonWeather";
+	public static String KEY_TEMPERATURE_UNIT_SYMBOL = "SharedPreferenceUtils.Key.TemperatureUnitSymbol";
 
 	private static SharedPreferences getDefaultSharedPreferences(final Context context) {
 		return PreferenceManager.getDefaultSharedPreferences(context);
@@ -33,6 +33,7 @@ public class SharedPreferenceUtils {
 	}
 
 	public static void storeTemperatureUnitSymbol(final Context context, final String unitSymbol) {
+		//TODO store directly the string resource id
 		final Editor editor = getDefaultSharedPreferences(context).edit();
 		editor.putString(KEY_TEMPERATURE_UNIT_SYMBOL, unitSymbol);
 		editor.apply();
@@ -41,6 +42,14 @@ public class SharedPreferenceUtils {
 	public static String getTemperatureUnitSymbol(final Context context) {
 		return getDefaultSharedPreferences(context).getString(KEY_TEMPERATURE_UNIT_SYMBOL,
 				context.getString(R.string.temperature_unit_celsius_symbol));
+	}
+
+	public static void registerOnSharedPreferenceChangeListener(final Context context, SharedPreferences.OnSharedPreferenceChangeListener listener) {
+		getDefaultSharedPreferences(context).registerOnSharedPreferenceChangeListener(listener);
+	}
+
+	public static void unregisterOnSharedPreferenceChangeListener(final Context context, SharedPreferences.OnSharedPreferenceChangeListener listener) {
+		getDefaultSharedPreferences(context).unregisterOnSharedPreferenceChangeListener(listener);
 	}
 
 }
