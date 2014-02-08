@@ -27,5 +27,8 @@
     <string name="temperature_unit_fahrenheit">Fahrenheit</string>
     <string name="temperature_unit_fahrenheit_symbol">°F</string>
 
+    <!-- OpenWeatherMap API -->
+    <string name="url_open_weather_map_api">http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&amp;APPID=c756ce72a59777bd32a5762e12e74057&amp;cnt=14&amp;mode=json&amp;lang=%1$s&amp;lat=%2$f&amp;lon=%3$f</string>
+
     <string name="dialog_ok">OK</string>
 </resources>

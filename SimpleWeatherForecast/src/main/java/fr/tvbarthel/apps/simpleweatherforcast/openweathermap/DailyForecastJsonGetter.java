@@ -9,9 +9,16 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Locale;
 
+import fr.tvbarthel.apps.simpleweatherforcast.R;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.SharedPreferenceUtils;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.URLUtils;
 
+/**
+ * An {@link AsyncTask} used to retrieve the weather forecast as a Json from openweathermap.
+ * <p/>
+ * This class uses the openweathermap API.
+ * http://openweathermap.org/
+ */
 public class DailyForecastJsonGetter extends AsyncTask<Location, Void, String> {
 
 	private Context mContext;
@@ -24,7 +31,7 @@ public class DailyForecastJsonGetter extends AsyncTask<Location, Void, String> {
 	@Override
 	protected String doInBackground(Location... params) {
 		final Location lastKnownLocation = params[0];
-		String json = getJsonAsString(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+		final String json = getJsonAsString(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
 		if (json != null) {
 			SharedPreferenceUtils.storeWeather(mContext, json);
 		}
@@ -34,9 +41,12 @@ public class DailyForecastJsonGetter extends AsyncTask<Location, Void, String> {
 	private String getJsonAsString(double latitude, double longitude) {
 		String result = null;
 		try {
-			//TODO use real locale.
+			//Retrieve the language.
 			final String lang = Locale.getDefault().getLanguage();
-			result = URLUtils.getAsString("http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + String.valueOf(latitude) + "&lon=" + String.valueOf(longitude) + "&cnt=14&mode=json&lang=" + lang + "&units=metric&APPID=c756ce72a59777bd32a5762e12e74057");
+			//Forge the url for the open weather map API.
+			final String url = mContext.getString(R.string.url_open_weather_map_api, lang, latitude, longitude);
+			//retrieve the response as a string.
+			result = URLUtils.getAsString(url);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
