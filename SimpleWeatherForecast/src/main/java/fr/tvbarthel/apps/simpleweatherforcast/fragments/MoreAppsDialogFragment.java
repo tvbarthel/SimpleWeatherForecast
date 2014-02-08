@@ -41,7 +41,7 @@ public class MoreAppsDialogFragment extends DialogFragment {
 
 		}
 
-		dialogBuilder.setView(dialogView).setCancelable(true).setPositiveButton("OK", null);
+		dialogBuilder.setView(dialogView).setCancelable(true).setPositiveButton(R.string.dialog_ok, null);
 
 		return dialogBuilder.create();
 	}

@@ -126,12 +126,10 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 					}
 				}.execute(lastKnownLocation);
 			} else {
-				//TODO don't use a hardcoded string.
-				makeTextToast("Please enable the access to your location.");
+				makeTextToast(R.string.toast_not_allowed_to_access_location);
 			}
 		} else {
-			//TODO don't use a hard coded string.
-			makeTextToast("Could not refresh weather, no connection available.");
+			makeTextToast(R.string.toast_no_connection_available);
 		}
 	}
 
@@ -155,8 +153,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 			if (isWeatherOutdated(REFRESH_TIME_MANUAL)) {
 				updateDailyForecast();
 			} else {
-				//TODO don't use hard coded string.
-				makeTextToast("Already up to date.");
+				makeTextToast(R.string.toast_already_up_to_date);
 			}
 			return true;
 		} else if (id == R.id.menu_item_license) {
@@ -174,9 +171,9 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void makeTextToast(String message) {
+	private void makeTextToast(int stringResourceId) {
 		hideToast();
-		mTextToast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
+		mTextToast = Toast.makeText(this, stringResourceId, Toast.LENGTH_LONG);
 		mTextToast.show();
 	}
 

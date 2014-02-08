@@ -47,10 +47,10 @@ public class ForecastFragment extends Fragment {
 						.setVisibility(View.GONE);
 			}*/
 
-			final String minTemperature = String.valueOf(convertTemperature(dailyForecastModel.getMinTemperature(), temperatureUnit));
-			final String maxTemperature = String.valueOf(convertTemperature(dailyForecastModel.getMaxTemperature(), temperatureUnit));
+			final long minTemperature = convertTemperature(dailyForecastModel.getMinTemperature(), temperatureUnit);
+			final long maxTemperature = convertTemperature(dailyForecastModel.getMaxTemperature(), temperatureUnit);
 
-			((TextView) v.findViewById(R.id.fragment_forecast_min_max)).setText(minTemperature + " ~ " + maxTemperature);
+			((TextView) v.findViewById(R.id.fragment_forecast_min_max)).setText(getString(R.string.forecast_fragment_min_max_temperature, minTemperature, maxTemperature));
 
 			((TextView) v.findViewById(R.id.fragment_forecast_weather_description))
 					.setText(dailyForecastModel.getDescription());

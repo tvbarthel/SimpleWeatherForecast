@@ -8,6 +8,7 @@ import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import fr.tvbarthel.apps.simpleweatherforcast.R;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.SharedPreferenceUtils;
 
 
@@ -36,8 +37,7 @@ public class TemperatureUnitPickerDialogFragment extends DialogFragment {
 				android.R.layout.simple_expandable_list_item_1, temperatureUnitNames);
 
 		final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		//TODO don't use a hard coded string
-		builder.setTitle("Select a unit");
+		builder.setTitle(R.string.dialog_temperature_unit_picker_title);
 		builder.setAdapter(temperatureUnitNameAdapter, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -46,8 +46,7 @@ public class TemperatureUnitPickerDialogFragment extends DialogFragment {
 			}
 		});
 		builder.setCancelable(true);
-		//TODO don't use a hard coded string
-		builder.setNegativeButton("Cancel", null);
+		builder.setNegativeButton(R.string.dialog_cancel, null);
 		return builder.create();
 	}
 }

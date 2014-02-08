@@ -19,6 +19,9 @@
     <string name="dialog_more_apps_chase_whisply_app_name">Chase Whisply</string>
     <string name="dialog_more_apps_chase_whisply_package_name">fr.tvbarthel.games.chasewhisply</string>
 
+    <!-- Temperature unit picker dialog fragment -->
+    <string name="dialog_temperature_unit_picker_title">Set unit</string>
+
     <!-- Temperature Units -->
     <string name="temperature_unit_celsius">Celsius</string>
     <string name="temperature_unit_celsius_symbol">°C</string>
@@ -27,8 +30,18 @@
     <string name="temperature_unit_fahrenheit">Fahrenheit</string>
     <string name="temperature_unit_fahrenheit_symbol">°F</string>
 
+    <!-- Forecast Fragment -->
+    <string name="forecast_fragment_min_max_temperature">%1$d ~ %2$d</string>
+
     <!-- OpenWeatherMap API -->
     <string name="url_open_weather_map_api">http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&amp;APPID=c756ce72a59777bd32a5762e12e74057&amp;cnt=14&amp;mode=json&amp;lang=%1$s&amp;lat=%2$f&amp;lon=%3$f</string>
 
+    <!-- dialog fragments -->
     <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+
+    <!-- Toast messages -->
+    <string name="toast_already_up_to_date">Already up to date.</string>
+    <string name="toast_no_connection_available">Could not refresh weather, no connection available.</string>
+    <string name="toast_not_allowed_to_access_location">Please enable the access to your location.</string>
 </resources>
