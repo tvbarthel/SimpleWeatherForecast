@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.method.LinkMovementMethod;
-import android.text.method.MovementMethod;
 import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,9 +22,9 @@ public class LicenseDialogFragment extends DialogFragment {
 		final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
 		final View dialogView = inflater.inflate(R.layout.dialog_license, null);
 
-		if(dialogView != null) {
+		if (dialogView != null) {
 			final TextView textViewContent = (TextView) dialogView.findViewById(R.id.dialog_license_content);
-			if(textViewContent != null) {
+			if (textViewContent != null) {
 				textViewContent.setMovementMethod(LinkMovementMethod.getInstance());
 				Linkify.addLinks(textViewContent, Linkify.WEB_URLS);
 			}
