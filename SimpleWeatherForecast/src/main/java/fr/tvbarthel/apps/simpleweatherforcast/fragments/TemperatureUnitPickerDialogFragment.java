@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import fr.tvbarthel.apps.simpleweatherforcast.R;
@@ -41,7 +40,6 @@ public class TemperatureUnitPickerDialogFragment extends DialogFragment {
 		builder.setAdapter(temperatureUnitNameAdapter, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				Log.d("argonne", temperatureUnitNames[which] + " -> " + temperatureUnitSymbols[which]);
 				SharedPreferenceUtils.storeTemperatureUnitSymbol(getActivity(), temperatureUnitSymbols[which]);
 			}
 		});

@@ -14,7 +14,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.PageTransformer;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -101,10 +100,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
 		//Check if the last known weather is out dated.
 		if (isWeatherOutdated(REFRESH_TIME_AUTO) || lastKnownWeather == null) {
-			Log.d("argonne", "outdated");
 			updateDailyForecast();
-		} else {
-			Log.d("argonne", "up to date");
 		}
 	}
 
@@ -121,7 +117,6 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 					@Override
 					protected void onPostExecute(String newJsondailyForecast) {
 						super.onPostExecute(newJsondailyForecast);
-						Log.d("argonne", "newly loaded -> " + newJsondailyForecast);
 						loadDailyForecast(newJsondailyForecast);
 					}
 				}.execute(lastKnownLocation);
@@ -264,7 +259,6 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-		Log.d("argonne", "hi ! -> " + key);
 		if (key.equals(SharedPreferenceUtils.KEY_TEMPERATURE_UNIT_SYMBOL)) {
 			mTemperatureUnit = SharedPreferenceUtils.getTemperatureUnitSymbol(this);
 			mSectionsPagerAdapter.notifyDataSetChanged();
