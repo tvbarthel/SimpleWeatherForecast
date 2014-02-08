@@ -244,8 +244,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 	private String getActionBarTitle(int currentPosition) {
 		final DailyForecastModel currentModel = mSectionsPagerAdapter.getModel(currentPosition);
 		final Date dateFromUnixTimeStamp = new Date(currentModel.getDateTime() * 1000);
-		String title = new SimpleDateFormat("EEEE dd MMMM", Locale.getDefault()).format(dateFromUnixTimeStamp);
-		return title;
+		return new SimpleDateFormat("EEEE dd MMMM", Locale.getDefault()).format(dateFromUnixTimeStamp);
 	}
 
 
