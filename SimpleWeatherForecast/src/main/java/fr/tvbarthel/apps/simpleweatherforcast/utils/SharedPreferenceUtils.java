@@ -33,7 +33,6 @@ public class SharedPreferenceUtils {
 	}
 
 	public static void storeTemperatureUnitSymbol(final Context context, final String unitSymbol) {
-		//TODO store directly the string resource id
 		final Editor editor = getDefaultSharedPreferences(context).edit();
 		editor.putString(KEY_TEMPERATURE_UNIT_SYMBOL, unitSymbol);
 		editor.apply();
