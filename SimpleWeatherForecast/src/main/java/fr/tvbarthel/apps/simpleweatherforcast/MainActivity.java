@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.PageTransformer;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -56,14 +57,16 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		//Get the temperature unit symbol
 		mTemperatureUnit = SharedPreferenceUtils.getTemperatureUnitSymbol(this);
 
-
-		getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.argb(130, 0, 0, 0)));
-		getSupportActionBar().setDisplayShowHomeEnabled(false);
+		final ActionBar actionBar = getSupportActionBar();
+		//Add some transparency to the action bar background
+		actionBar.setBackgroundDrawable(new ColorDrawable(Color.argb(130, 0, 0, 0)));
+		//Hide the app icon in the actionBar
+		actionBar.setDisplayShowHomeEnabled(false);
 
 		mActionBarTextView = getActionBarTitleTextView();
-
 		mSectionsPagerAdapter = new ForecastPagerAdapter(getSupportFragmentManager());
 
 
@@ -101,30 +104,6 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 		//Check if the last known weather is out dated.
 		if (isWeatherOutdated(REFRESH_TIME_AUTO) || lastKnownWeather == null) {
 			updateDailyForecast();
-		}
-	}
-
-	private boolean isWeatherOutdated(long refreshTimeInMillis) {
-		final long lastUpdate = SharedPreferenceUtils.getLastUpdate(getApplicationContext());
-		return System.currentTimeMillis() - lastUpdate > refreshTimeInMillis;
-	}
-
-	private void updateDailyForecast() {
-		if (ConnectivityUtils.isConnected(getApplicationContext())) {
-			final Location lastKnownLocation = LocationUtils.getLastKnownLocation(getApplicationContext());
-			if (lastKnownLocation != null) {
-				new DailyForecastJsonGetter(getApplicationContext()) {
-					@Override
-					protected void onPostExecute(String newJsondailyForecast) {
-						super.onPostExecute(newJsondailyForecast);
-						loadDailyForecast(newJsondailyForecast);
-					}
-				}.execute(lastKnownLocation);
-			} else {
-				makeTextToast(R.string.toast_not_allowed_to_access_location);
-			}
-		} else {
-			makeTextToast(R.string.toast_no_connection_available);
 		}
 	}
 
@@ -166,6 +145,39 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 		return super.onOptionsItemSelected(item);
 	}
 
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+		if (key.equals(SharedPreferenceUtils.KEY_TEMPERATURE_UNIT_SYMBOL)) {
+			mTemperatureUnit = SharedPreferenceUtils.getTemperatureUnitSymbol(this);
+			mSectionsPagerAdapter.notifyDataSetChanged();
+			invalidatePageTransformer();
+		}
+	}
+
+	private boolean isWeatherOutdated(long refreshTimeInMillis) {
+		final long lastUpdate = SharedPreferenceUtils.getLastUpdate(getApplicationContext());
+		return System.currentTimeMillis() - lastUpdate > refreshTimeInMillis;
+	}
+
+	private void updateDailyForecast() {
+		if (ConnectivityUtils.isConnected(getApplicationContext())) {
+			final Location lastKnownLocation = LocationUtils.getLastKnownLocation(getApplicationContext());
+			if (lastKnownLocation != null) {
+				new DailyForecastJsonGetter(getApplicationContext()) {
+					@Override
+					protected void onPostExecute(String newJsondailyForecast) {
+						super.onPostExecute(newJsondailyForecast);
+						loadDailyForecast(newJsondailyForecast);
+					}
+				}.execute(lastKnownLocation);
+			} else {
+				makeTextToast(R.string.toast_not_allowed_to_access_location);
+			}
+		} else {
+			makeTextToast(R.string.toast_no_connection_available);
+		}
+	}
+
 	private void makeTextToast(int stringResourceId) {
 		hideToast();
 		mTextToast = Toast.makeText(this, stringResourceId, Toast.LENGTH_LONG);
@@ -192,7 +204,9 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 		}
 	}
 
-	//Trick to notify the pageTransformer of a data set change.
+	/**
+	 * Trick to notify the pageTransformer of a data set change.
+	 */
 	private void invalidatePageTransformer() {
 		if (mViewPager.getAdapter().getCount() > 0) {
 			new Handler().post(new Runnable() {
@@ -257,15 +271,10 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 		return Color.argb(255, currentColor[0] + deltaR, currentColor[1] + deltaG, currentColor[2] + deltaB);
 	}
 
-	@Override
-	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-		if (key.equals(SharedPreferenceUtils.KEY_TEMPERATURE_UNIT_SYMBOL)) {
-			mTemperatureUnit = SharedPreferenceUtils.getTemperatureUnitSymbol(this);
-			mSectionsPagerAdapter.notifyDataSetChanged();
-			invalidatePageTransformer();
-		}
-	}
 
+	/**
+	 * A {@link FragmentStatePagerAdapter} used for {@link DailyForecastModel}
+	 */
 	public class ForecastPagerAdapter extends FragmentStatePagerAdapter {
 
 		private final ArrayList<DailyForecastModel> mDailyForecastModels;
@@ -304,6 +313,9 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 		}
 	}
 
+	/**
+	 * A {@link PageTransformer} used to scale the fragments.
+	 */
 	public class ForecastPageTransformer implements PageTransformer {
 
 		public void transformPage(View view, float position) {
