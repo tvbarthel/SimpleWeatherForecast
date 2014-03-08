@@ -1,7 +1,6 @@
 package fr.tvbarthel.apps.simpleweatherforcast;
 
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
@@ -15,10 +14,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.PageTransformer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nineoldandroids.view.ViewHelper;
@@ -36,6 +36,7 @@ import fr.tvbarthel.apps.simpleweatherforcast.fragments.TemperatureUnitPickerDia
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonGetter;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonParser;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastModel;
+import fr.tvbarthel.apps.simpleweatherforcast.ui.AlphaForegroundColorSpan;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.ColorUtils;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.ConnectivityUtils;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.LocationUtils;
@@ -48,9 +49,10 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
 	private ForecastPagerAdapter mSectionsPagerAdapter;
 	private ViewPager mViewPager;
-	private TextView mActionBarTextView;
 	private Toast mTextToast;
 	private String mTemperatureUnit;
+	private SpannableString mActionBarSpannableTitle;
+	private AlphaForegroundColorSpan mAlphaForegroundColorSpan;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +68,8 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 		//Hide the app icon in the actionBar
 		actionBar.setDisplayShowHomeEnabled(false);
 
-		mActionBarTextView = getActionBarTitleTextView();
 		mSectionsPagerAdapter = new ForecastPagerAdapter(getSupportFragmentManager());
+		mAlphaForegroundColorSpan = new AlphaForegroundColorSpan(Color.WHITE);
 
 
 		mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -227,27 +229,28 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 		getWindow().setBackgroundDrawable(g);
 	}
 
-	private void updateActionBarTitle(int currentPosition, float positionOffset) {
-		if (positionOffset < 0.5) {
-			getSupportActionBar().setTitle(getActionBarTitle(currentPosition));
-			ViewHelper.setAlpha(mActionBarTextView, 1 - positionOffset * 2);
-		} else {
-			getSupportActionBar().setTitle(getActionBarTitle(currentPosition + 1));
-			ViewHelper.setAlpha(mActionBarTextView, (positionOffset - 0.5f) * 2);
-		}
+	private void setActionBarAlpha(float alpha) {
+		mAlphaForegroundColorSpan.setAlpha(alpha);
+		mActionBarSpannableTitle.setSpan(mAlphaForegroundColorSpan, 0, mActionBarSpannableTitle.length(),
+				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		getSupportActionBar().setTitle(mActionBarSpannableTitle);
 	}
 
-	private TextView getActionBarTitleTextView() {
-		final Resources systemResources = Resources.getSystem();
-		TextView actionBarTitleTextView = new TextView(this);
-		if (systemResources != null) {
-			final int actionBarTitleViewId = systemResources.getIdentifier("action_bar_title", "id", "android");
-			final TextView actionBarTitleTextViewCandidate = (TextView) findViewById(actionBarTitleViewId);
-			if (actionBarTitleTextViewCandidate != null) {
-				actionBarTitleTextView = actionBarTitleTextViewCandidate;
-			}
+	private void updateActionBarTitle(int currentPosition, float positionOffset) {
+		float alpha = 1 - positionOffset * 2;
+		if (positionOffset >= 0.5) {
+			currentPosition++;
+			alpha = (positionOffset - 0.5f) * 2;
 		}
-		return actionBarTitleTextView;
+		setActionBarTitle(currentPosition);
+		setActionBarAlpha(alpha);
+	}
+
+	private void setActionBarTitle(int position) {
+		String newTitle = getActionBarTitle(position);
+		if (mActionBarSpannableTitle == null || !mActionBarSpannableTitle.toString().equals(newTitle)) {
+			mActionBarSpannableTitle = new SpannableString(newTitle);
+		}
 	}
 
 	private String getActionBarTitle(int currentPosition) {
