@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.TypefaceSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,6 +54,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 	private String mTemperatureUnit;
 	private SpannableString mActionBarSpannableTitle;
 	private AlphaForegroundColorSpan mAlphaForegroundColorSpan;
+	private TypefaceSpan mTypefaceSpanLight;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +72,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
 		mSectionsPagerAdapter = new ForecastPagerAdapter(getSupportFragmentManager());
 		mAlphaForegroundColorSpan = new AlphaForegroundColorSpan(Color.WHITE);
-
+		mTypefaceSpanLight = new TypefaceSpan("sans-serif-light");
 
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -250,6 +252,8 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 		String newTitle = getActionBarTitle(position);
 		if (mActionBarSpannableTitle == null || !mActionBarSpannableTitle.toString().equals(newTitle)) {
 			mActionBarSpannableTitle = new SpannableString(newTitle);
+			mActionBarSpannableTitle.setSpan(mTypefaceSpanLight, 0, mActionBarSpannableTitle.length(),
+					Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		}
 	}
 
