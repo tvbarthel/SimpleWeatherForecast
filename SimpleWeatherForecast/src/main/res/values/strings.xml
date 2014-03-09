@@ -42,7 +42,7 @@
 
     <!-- Toast messages -->
     <string name="toast_already_up_to_date">Already up to date.</string>
-    <string name="toast_no_connection_available">Could not refresh weather, no connection available.</string>
+    <string name="toast_no_connection_available">Could not refresh weather, no connexion available.</string>
     <string name="toast_not_allowed_to_access_location">Please enable the access to your location.</string>
 
     <!-- Menu item -->
