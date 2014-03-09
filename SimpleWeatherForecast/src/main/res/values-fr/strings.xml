@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SimpleWeatherForecast</string>
+
+    <!-- License dialog fragment -->
+    <string name="dialog_license_title">License</string>
+    <string name="dialog_license_content">
+        Copyright © 2013 tvbarthel.\n\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
+    </string>
+
+    <!-- About dialog fragment -->
+    <string name="dialog_about_title">A Propos</string>
+    <string name="dialog_about_content">SimpleWeatherForecast est une application open-source développée par Vincent \"vbarthel\" Barthélémy, un étudiant en informatique.\n\nCode source: https://github.com/tvbarthel/SimpleWeatherForecast\n\nCette application utiliser l\'API d\'openweathermap : http://openweathermap.org/</string>
+
+    <!-- More apps dialog fragment -->
+    <string name="dialog_more_apps_title">Plus d\'applications</string>
+    <string name="dialog_more_apps_simplethermometer_app_name">Simple Thermometer</string>
+    <string name="dialog_more_apps_simplethermometer_package_name">fr.tvbarthel.apps.simplethermometer</string>
+    <string name="dialog_more_apps_chase_whisply_app_name">Chase Whisply</string>
+    <string name="dialog_more_apps_chase_whisply_package_name">fr.tvbarthel.games.chasewhisply</string>
+
+    <!-- Temperature unit picker dialog fragment -->
+    <string name="dialog_temperature_unit_picker_title">Choisir l\'unité</string>
+
+
+    <!-- dialog fragments -->
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Annuler</string>
+
+    <!-- Toast messages -->
+    <string name="toast_already_up_to_date">Déjà à jour.</string>
+    <string name="toast_no_connection_available">Impossible de rafraichir la météo, aucune connection disponible.</string>
+    <string name="toast_not_allowed_to_access_location">Veuillez autoriser l\'accès à votre position.</string>
+
+    <!-- Menu item -->
+    <string name="menu_item_refresh">Rafraichir</string>
+    <string name="menu_item_unit">Choisir une unité</string>
+    <string name="menu_item_about">A Propos</string>
+    <string name="menu_item_license">License</string>
+    <string name="menu_item_more_apps">Plus d\'Apps</string>
+</resources>
