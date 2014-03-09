@@ -5,31 +5,31 @@
 
     <item
         android:id="@+id/menu_item_manual_refresh"
-        android:title="Refresh"
+        android:title="@string/menu_item_refresh"
         android:orderInCategory="1"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_item_unit_picker"
-        android:title="Set Unit"
+        android:title="@string/menu_item_unit"
         android:orderInCategory="2"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_item_about"
-        android:title="About"
+        android:title="@string/menu_item_about"
         android:orderInCategory="3"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_item_license"
-        android:title="License"
+        android:title="@string/menu_item_license"
         android:orderInCategory="4"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_item_more_apps"
-        android:title="More Apps"
+        android:title="@string/menu_item_more_apps"
         android:orderInCategory="5"
         app:showAsAction="never" />
 
