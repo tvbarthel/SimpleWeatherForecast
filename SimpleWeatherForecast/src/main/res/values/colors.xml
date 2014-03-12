@@ -4,7 +4,12 @@
     <color name="text_palette_one">#FFFFFF</color>
     <color name="background_view_pager">#3C000000</color>
     <color name="holo_blue">#33B5E5</color>
+    <color name="holo_purple">#AA66CC</color>
+    <color name="holo_yellow">#FFBB33</color>
+    <color name="holo_red">#FF4444</color>
+    <color name="holo_green">#99CC00</color>
     <color name="text_more_apps_on">#66000000</color>
     <color name="text_more_apps_off">#FF000000</color>
+
 
 </resources>

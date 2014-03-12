@@ -38,7 +38,6 @@ import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonGe
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonParser;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastModel;
 import fr.tvbarthel.apps.simpleweatherforcast.ui.AlphaForegroundColorSpan;
-import fr.tvbarthel.apps.simpleweatherforcast.utils.ColorUtils;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.ConnectivityUtils;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.LocationUtils;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.SharedPreferenceUtils;
@@ -55,11 +54,15 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 	private SpannableString mActionBarSpannableTitle;
 	private AlphaForegroundColorSpan mAlphaForegroundColorSpan;
 	private TypefaceSpan mTypefaceSpanLight;
+	private int[] mBackgroundColors;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		// Get the colors used for the background
+		mBackgroundColors = getResources().getIntArray(R.array.background_colors);
 
 		//Get the temperature unit symbol
 		mTemperatureUnit = SharedPreferenceUtils.getTemperatureUnitSymbol(this);
@@ -266,16 +269,16 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
 	private int getColor(int currentPosition, float positionOffset) {
 		//retrieve current color and next color relative to the current position.
-		final int colorSize = ColorUtils.COLORS.length;
-		final int[] currentColor = ColorUtils.COLORS[(currentPosition) % colorSize];
-		final int[] nextColor = ColorUtils.COLORS[(currentPosition + 1) % colorSize];
+		final int colorSize = mBackgroundColors.length;
+		final int currentColor = mBackgroundColors[(currentPosition) % colorSize];
+		final int nextColor = mBackgroundColors[(currentPosition + 1) % colorSize];
 
 		//Compute the deltas relative to the current position offset.
-		final int deltaR = (int) ((nextColor[0] - currentColor[0]) * positionOffset);
-		final int deltaG = (int) ((nextColor[1] - currentColor[1]) * positionOffset);
-		final int deltaB = (int) ((nextColor[2] - currentColor[2]) * positionOffset);
+		final int deltaR = (int) ((Color.red(nextColor) - Color.red(currentColor)) * positionOffset);
+		final int deltaG = (int) ((Color.green(nextColor) - Color.green(currentColor)) * positionOffset);
+		final int deltaB = (int) ((Color.blue(nextColor) - Color.blue(currentColor)) * positionOffset);
 
-		return Color.argb(255, currentColor[0] + deltaR, currentColor[1] + deltaG, currentColor[2] + deltaB);
+		return Color.argb(255, Color.red(currentColor) + deltaR, Color.green(currentColor) + deltaG, Color.blue(currentColor) + deltaB);
 	}
 
 
