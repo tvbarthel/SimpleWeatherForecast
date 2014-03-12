@@ -65,9 +65,9 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 		mTemperatureUnit = SharedPreferenceUtils.getTemperatureUnitSymbol(this);
 
 		final ActionBar actionBar = getSupportActionBar();
-		//Add some transparency to the action bar background
+		// Add some transparency to the action bar background
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.argb(130, 0, 0, 0)));
-		//Hide the app icon in the actionBar
+		// Hide the app icon in the actionBar
 		actionBar.setDisplayShowHomeEnabled(false);
 
 		mSectionsPagerAdapter = new ForecastPagerAdapter(getSupportFragmentManager());

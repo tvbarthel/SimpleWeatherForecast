@@ -11,6 +11,13 @@ import java.net.URL;
 
 public class URLUtils {
 
+	/**
+	 * Get the body of a http response as a String.
+	 *
+	 * @param urlString the url to get.
+	 * @return the inputStream pointed by the url as a String.
+	 * @throws IOException
+	 */
 	public static String getAsString(String urlString) throws IOException {
 		final URL url = new URL(urlString);
 		String resultContent = null;
