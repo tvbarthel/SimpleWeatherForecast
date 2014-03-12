@@ -15,24 +15,24 @@ import fr.tvbarthel.apps.simpleweatherforcast.R;
 
 public class LicenseDialogFragment extends DialogFragment {
 
-	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		final LayoutInflater inflater = getActivity().getLayoutInflater();
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final LayoutInflater inflater = getActivity().getLayoutInflater();
 
-		final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-		final View dialogView = inflater.inflate(R.layout.dialog_license, null);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        final View dialogView = inflater.inflate(R.layout.dialog_license, null);
 
-		if (dialogView != null) {
-			final TextView textViewContent = (TextView) dialogView.findViewById(R.id.dialog_license_content);
-			if (textViewContent != null) {
-				textViewContent.setMovementMethod(LinkMovementMethod.getInstance());
-				Linkify.addLinks(textViewContent, Linkify.WEB_URLS);
-			}
-		}
+        if (dialogView != null) {
+            final TextView textViewContent = (TextView) dialogView.findViewById(R.id.dialog_license_content);
+            if (textViewContent != null) {
+                textViewContent.setMovementMethod(LinkMovementMethod.getInstance());
+                Linkify.addLinks(textViewContent, Linkify.WEB_URLS);
+            }
+        }
 
-		dialogBuilder.setCancelable(true)
-				.setView(dialogView)
-				.setPositiveButton(getString(R.string.dialog_ok), null);
-		return dialogBuilder.create();
-	}
+        dialogBuilder.setCancelable(true)
+                .setView(dialogView)
+                .setPositiveButton(getString(R.string.dialog_ok), null);
+        return dialogBuilder.create();
+    }
 }

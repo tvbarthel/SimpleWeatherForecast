@@ -21,37 +21,37 @@ import fr.tvbarthel.apps.simpleweatherforcast.utils.URLUtils;
  */
 public class DailyForecastJsonGetter extends AsyncTask<Location, Void, String> {
 
-	private Context mContext;
+    private Context mContext;
 
-	public DailyForecastJsonGetter(Context context) {
-		super();
-		mContext = context;
-	}
+    public DailyForecastJsonGetter(Context context) {
+        super();
+        mContext = context;
+    }
 
-	@Override
-	protected String doInBackground(Location... params) {
-		final Location lastKnownLocation = params[0];
-		final String json = getJsonAsString(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-		if (json != null) {
-			SharedPreferenceUtils.storeWeather(mContext, json);
-		}
-		return json;
-	}
+    @Override
+    protected String doInBackground(Location... params) {
+        final Location lastKnownLocation = params[0];
+        final String json = getJsonAsString(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+        if (json != null) {
+            SharedPreferenceUtils.storeWeather(mContext, json);
+        }
+        return json;
+    }
 
-	private String getJsonAsString(double latitude, double longitude) {
-		String result = null;
-		try {
-			//Retrieve the language.
-			final String lang = Locale.getDefault().getLanguage();
-			//Forge the url for the open weather map API.
-			final String url = mContext.getString(R.string.url_open_weather_map_api, lang, latitude, longitude);
-			//retrieve the response as a string.
-			result = URLUtils.getAsString(url);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
+    private String getJsonAsString(double latitude, double longitude) {
+        String result = null;
+        try {
+            //Retrieve the language.
+            final String lang = Locale.getDefault().getLanguage();
+            //Forge the url for the open weather map API.
+            final String url = mContext.getString(R.string.url_open_weather_map_api, lang, latitude, longitude);
+            //retrieve the response as a string.
+            result = URLUtils.getAsString(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

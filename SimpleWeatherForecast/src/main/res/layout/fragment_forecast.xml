@@ -15,7 +15,7 @@
         android:layout_gravity="center_horizontal"
         android:textColor="@color/text_palette_one"
         android:textSize="@dimen/text_medium"
-        android:fontFamily="sans-serif-light"/>
+        android:fontFamily="sans-serif-light" />
 
     <TextView
         android:layout_width="wrap_content"
