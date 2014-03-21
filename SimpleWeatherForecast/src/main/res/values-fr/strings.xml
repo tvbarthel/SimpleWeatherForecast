@@ -6,7 +6,7 @@
     <string name="dialog_license_title">License</string>
 
     <!-- About dialog fragment -->
-    <string name="dialog_about_title">A Propos</string>
+    <string name="dialog_about_title">À Propos</string>
     <string name="dialog_about_content">SimpleWeatherForecast est une application open-source développée par Vincent \"vbarthel\" Barthélémy, un étudiant en informatique.\n\nCode source: https://github.com/tvbarthel/SimpleWeatherForecast\n\nCette application utilise l\'API d\'openweathermap : http://openweathermap.org/</string>
 
     <!-- More apps dialog fragment -->
@@ -32,7 +32,7 @@
     <!-- Menu item -->
     <string name="menu_item_refresh">Rafraichir</string>
     <string name="menu_item_unit">Choisir une unité</string>
-    <string name="menu_item_about">A Propos</string>
+    <string name="menu_item_about">À Propos</string>
     <string name="menu_item_license">License</string>
     <string name="menu_item_more_apps">Plus d\'Apps</string>
 </resources>
