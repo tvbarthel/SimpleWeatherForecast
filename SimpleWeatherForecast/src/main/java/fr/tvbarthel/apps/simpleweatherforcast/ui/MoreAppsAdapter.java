@@ -29,11 +29,21 @@ public class MoreAppsAdapter extends ArrayAdapter<App> {
         if (appView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             appView = (RelativeLayout) inflater.inflate(R.layout.row_more_apps, parent, false);
+            ViewHolder holder = new ViewHolder();
+            holder.appName = (TextView) appView.findViewById(R.id.row_more_apps_name);
+            holder.appLogo = (ImageView) appView.findViewById(R.id.row_more_apps_logo);
+            appView.setTag(holder);
         }
 
-        ((TextView) appView.findViewById(R.id.row_more_apps_name)).setText(app.getNameResourceId());
-        ((ImageView) appView.findViewById(R.id.row_more_apps_logo)).setImageResource(app.getLogoResourceId());
+        ViewHolder holder = (ViewHolder) appView.getTag();
+        holder.appName.setText(app.getNameResourceId());
+        holder.appLogo.setImageResource(app.getLogoResourceId());
 
         return appView;
+    }
+
+    private static class ViewHolder {
+        TextView appName;
+        ImageView appLogo;
     }
 }
