@@ -4,4 +4,9 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="text_medium">30dp</dimen>
     <dimen name="text_large">70dp</dimen>
+    <dimen name="default_padding">8dp</dimen>
+
+    <!-- More apps dialog fragment -->
+    <dimen name="dialog_more_app_app_name_padding">32dp</dimen>
+    <dimen name="dialog_more_app_logo_padding">8dp</dimen>
 </resources>

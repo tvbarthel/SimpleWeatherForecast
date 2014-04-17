@@ -8,8 +8,14 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 import fr.tvbarthel.apps.simpleweatherforcast.R;
+import fr.tvbarthel.apps.simpleweatherforcast.model.App;
+import fr.tvbarthel.apps.simpleweatherforcast.ui.MoreAppsAdapter;
 
 public class MoreAppsDialogFragment extends DialogFragment {
 
@@ -19,29 +25,41 @@ public class MoreAppsDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final LayoutInflater inflater = getActivity().getLayoutInflater();
+        final ListView listView = (ListView) inflater.inflate(R.layout.dialog_more_apps, null);
 
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        final View dialogView = inflater.inflate(R.layout.dialog_more_apps, null);
+        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+        dialogBuilder.setTitle(R.string.dialog_more_apps_title);
+        dialogBuilder.setView(listView);
 
-        if (dialogView != null) {
+        App chaseWhisply = new App();
+        chaseWhisply.setLogoResourceId(R.drawable.ic_chase_whisply);
+        chaseWhisply.setNameResourceId(R.string.dialog_more_apps_chase_whisply_app_name);
+        chaseWhisply.setPackageNameResourceId(R.string.dialog_more_apps_chase_whisply_package_name);
 
-            dialogView.findViewById(R.id.dialog_more_apps_chase_whisply).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    launchPlayStoreDetails(getString(R.string.dialog_more_apps_chase_whisply_package_name));
-                }
-            });
+        App googlyZoo = new App();
+        googlyZoo.setLogoResourceId(R.drawable.ic_googly_zoo);
+        googlyZoo.setNameResourceId(R.string.dialog_more_apps_googly_zoo_app_name);
+        googlyZoo.setPackageNameResourceId(R.string.dialog_more_apps_googly_zoo_package_name);
 
-            dialogView.findViewById(R.id.dialog_more_apps_simplethermometer).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    launchPlayStoreDetails(getString(R.string.dialog_more_apps_simplethermometer_package_name));
-                }
-            });
+        App simpleThermometer = new App();
+        simpleThermometer.setLogoResourceId(R.drawable.ic_simple_thermometer);
+        simpleThermometer.setNameResourceId(R.string.dialog_more_apps_simplethermometer_app_name);
+        simpleThermometer.setPackageNameResourceId(R.string.dialog_more_apps_simplethermometer_package_name);
 
-        }
+        final ArrayList<App> apps = new ArrayList<App>();
+        apps.add(chaseWhisply);
+        apps.add(googlyZoo);
+        apps.add(simpleThermometer);
 
-        dialogBuilder.setView(dialogView).setCancelable(true).setPositiveButton(R.string.dialog_ok, null);
+        listView.setAdapter(new MoreAppsAdapter(getActivity(), apps));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                App appClicked = apps.get(position);
+                launchPlayStoreDetails(getResources().getString(appClicked.getPackageNameResourceId()));
+            }
+        });
 
         return dialogBuilder.create();
     }

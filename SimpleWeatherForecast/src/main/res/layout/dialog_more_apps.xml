@@ -1,42 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ListView
+    android:id="@+id/dialog_more_apps_listview"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/dialog_more_apps_title"
-            android:id="@+id/textView"
-            android:fontFamily="sans-serif-light"
-            android:textColor="@color/holo_blue" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/dialog_more_apps_simplethermometer"
-            android:text="@string/dialog_more_apps_simplethermometer_app_name"
-            android:fontFamily="sans-serif-light"
-            android:layout_marginTop="8dp"
-            android:textColor="@drawable/text_color_more_apps_link" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/dialog_more_apps_chase_whisply"
-            android:text="@string/dialog_more_apps_chase_whisply_app_name"
-            android:fontFamily="sans-serif-light"
-            android:layout_marginTop="8dp"
-            android:textColor="@drawable/text_color_more_apps_link" />
-    </LinearLayout>
-</ScrollView>
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:divider="@android:color/transparent"
+    android:dividerHeight="@dimen/default_padding"
+    android:drawSelectorOnTop="true"
+    android:listSelector="@drawable/selector_more_apps"
+    android:padding="@dimen/default_padding" />

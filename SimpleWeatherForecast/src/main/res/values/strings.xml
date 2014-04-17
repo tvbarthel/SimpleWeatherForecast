@@ -18,6 +18,8 @@
     <string name="dialog_more_apps_simplethermometer_package_name">fr.tvbarthel.apps.simplethermometer</string>
     <string name="dialog_more_apps_chase_whisply_app_name">Chase Whisply</string>
     <string name="dialog_more_apps_chase_whisply_package_name">fr.tvbarthel.games.chasewhisply</string>
+    <string name="dialog_more_apps_googly_zoo_app_name">Googly Zoo</string>
+    <string name="dialog_more_apps_googly_zoo_package_name">fr.tvbarthel.attempt.googlyzooapp</string>
 
     <!-- Temperature unit picker dialog fragment -->
     <string name="dialog_temperature_unit_picker_title">Set unit</string>
