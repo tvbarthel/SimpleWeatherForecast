@@ -2,7 +2,6 @@ package fr.tvbarthel.apps.simpleweatherforcast;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.location.Location;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.PageTransformer;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -184,11 +182,8 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
 
     private void initActionBar() {
-        final ActionBar actionBar = getSupportActionBar();
-        // Add some transparency to the action bar background
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.argb(130, 0, 0, 0)));
         // Hide the app icon in the actionBar
-        actionBar.setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
     }
 
     private void initViewPager() {
