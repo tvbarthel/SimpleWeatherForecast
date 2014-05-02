@@ -130,26 +130,36 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.menu_item_manual_refresh) {
-            if (isWeatherOutdated(REFRESH_TIME_MANUAL)) {
-                updateDailyForecast();
-            } else {
-                makeTextToast(R.string.toast_already_up_to_date);
-            }
-            return true;
-        } else if (id == R.id.menu_item_license) {
-            (new LicenseDialogFragment()).show(getSupportFragmentManager(), "dialog_license");
-        } else if (id == R.id.menu_item_about) {
-            (new AboutDialogFragment()).show(getSupportFragmentManager(), "dialog_about");
-        } else if (id == R.id.menu_item_more_apps) {
-            (new MoreAppsDialogFragment()).show(getSupportFragmentManager(), "dialog_more_apps");
-        } else if (id == R.id.menu_item_unit_picker) {
-            final String[] temperatureUnitNames = getResources().getStringArray(R.array.temperature_unit_names);
-            final String[] temperatureUnitSymbols = getResources().getStringArray(R.array.temperature_unit_symbols);
-            (TemperatureUnitPickerDialogFragment.newInstance(temperatureUnitNames, temperatureUnitSymbols))
-                    .show(getSupportFragmentManager(), "dialog_unit_picker");
+        boolean isActionConsumed;
+        switch (id) {
+            case R.id.menu_item_about:
+                isActionConsumed = handleActionAbout();
+                break;
+
+            case R.id.menu_item_manual_refresh:
+                isActionConsumed = handleActionManualRefresh();
+                break;
+
+            case R.id.menu_item_license:
+                isActionConsumed = handleActionLicense();
+                break;
+
+            case R.id.menu_item_more_apps:
+                isActionConsumed = handleActionMoreApps();
+                break;
+
+            case R.id.menu_item_unit_picker:
+                isActionConsumed = handleActionUnitPicker();
+                break;
+
+            case R.id.menu_item_support:
+                isActionConsumed = handleActionSupport();
+                break;
+
+            default:
+                isActionConsumed = super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+        return isActionConsumed;
     }
 
     @Override
@@ -159,6 +169,43 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
             mSectionsPagerAdapter.notifyDataSetChanged();
             invalidatePageTransformer();
         }
+    }
+
+    private boolean handleActionSupport() {
+        // TODO
+        return true;
+    }
+
+    private boolean handleActionUnitPicker() {
+        final String[] temperatureUnitNames = getResources().getStringArray(R.array.temperature_unit_names);
+        final String[] temperatureUnitSymbols = getResources().getStringArray(R.array.temperature_unit_symbols);
+        (TemperatureUnitPickerDialogFragment.newInstance(temperatureUnitNames, temperatureUnitSymbols))
+                .show(getSupportFragmentManager(), "dialog_unit_picker");
+        return true;
+    }
+
+    private boolean handleActionAbout() {
+        (new AboutDialogFragment()).show(getSupportFragmentManager(), "dialog_about");
+        return true;
+    }
+
+    private boolean handleActionMoreApps() {
+        (new MoreAppsDialogFragment()).show(getSupportFragmentManager(), "dialog_more_apps");
+        return true;
+    }
+
+    private boolean handleActionLicense() {
+        (new LicenseDialogFragment()).show(getSupportFragmentManager(), "dialog_license");
+        return true;
+    }
+
+    private boolean handleActionManualRefresh() {
+        if (isWeatherOutdated(REFRESH_TIME_MANUAL)) {
+            updateDailyForecast();
+        } else {
+            makeTextToast(R.string.toast_already_up_to_date);
+        }
+        return true;
     }
 
     private boolean isWeatherOutdated(long refreshTimeInMillis) {
