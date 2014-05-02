@@ -53,4 +53,5 @@
     <string name="menu_item_about">About</string>
     <string name="menu_item_license">License</string>
     <string name="menu_item_more_apps">More Apps</string>
+    <string name="menu_item_support">Buy us a coffee</string>
 </resources>

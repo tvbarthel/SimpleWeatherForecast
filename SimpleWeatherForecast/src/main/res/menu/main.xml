@@ -4,6 +4,12 @@
     tools:context="fr.tvbarthel.apps.simpleweatherforcast.MainActivity">
 
     <item
+        android:id="@+id/menu_item_support"
+        android:icon="@drawable/ic_action_support"
+        android:title="@string/menu_item_support"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/menu_item_manual_refresh"
         android:title="@string/menu_item_refresh"
         android:orderInCategory="1"
