@@ -63,46 +63,20 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
         // Get the colors used for the background
         mBackgroundColors = getResources().getIntArray(R.array.background_colors);
-
         //Get the temperature unit symbol
         mTemperatureUnit = SharedPreferenceUtils.getTemperatureUnitSymbol(this);
 
-        final ActionBar actionBar = getSupportActionBar();
-        // Add some transparency to the action bar background
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.argb(130, 0, 0, 0)));
-        // Hide the app icon in the actionBar
-        actionBar.setDisplayShowHomeEnabled(false);
-
-        mSectionsPagerAdapter = new ForecastPagerAdapter(getSupportFragmentManager());
         mAlphaForegroundColorSpan = new AlphaForegroundColorSpan(Color.WHITE);
         mTypefaceSpanLight = new TypefaceSpan("sans-serif-light");
 
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setPageTransformer(true, new ForecastPageTransformer());
-        mViewPager.setOffscreenPageLimit(2);
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int currentPosition, float positionOffset, int i2) {
-                setGradientBackgroundColor(currentPosition, positionOffset);
-                updateActionBarTitle(currentPosition, positionOffset);
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-            }
-        });
+        initActionBar();
+        initViewPager();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         final String lastKnownWeather = SharedPreferenceUtils.getLastKnownWeather(getApplicationContext());
-
         SharedPreferenceUtils.registerOnSharedPreferenceChangeListener(this, this);
 
         //Load the last known weather
@@ -206,6 +180,38 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
             makeTextToast(R.string.toast_already_up_to_date);
         }
         return true;
+    }
+
+
+    private void initActionBar() {
+        final ActionBar actionBar = getSupportActionBar();
+        // Add some transparency to the action bar background
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.argb(130, 0, 0, 0)));
+        // Hide the app icon in the actionBar
+        actionBar.setDisplayShowHomeEnabled(false);
+    }
+
+    private void initViewPager() {
+        mSectionsPagerAdapter = new ForecastPagerAdapter(getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setPageTransformer(true, new ForecastPageTransformer());
+        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int currentPosition, float positionOffset, int i2) {
+                setGradientBackgroundColor(currentPosition, positionOffset);
+                updateActionBarTitle(currentPosition, positionOffset);
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+            }
+        });
     }
 
     private boolean isWeatherOutdated(long refreshTimeInMillis) {
