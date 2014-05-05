@@ -11,6 +11,7 @@
     <color name="text_more_apps_on">#66000000</color>
     <color name="text_more_apps_off">#FF000000</color>
     <color name="black_translucent">#82000000</color>
+    <color name="black_translucent_dark">#DD222222</color>
 
     <!-- More apps dialog fragment -->
     <color name="row_more_apps_background">#CC999999</color>
