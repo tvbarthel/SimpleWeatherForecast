@@ -31,6 +31,7 @@ public class MoreAppsDialogFragment extends DialogFragment {
         dialogBuilder.setPositiveButton(android.R.string.ok, null);
         dialogBuilder.setTitle(R.string.dialog_more_apps_title);
         dialogBuilder.setView(listView);
+        dialogBuilder.setInverseBackgroundForced(true);
 
         App chaseWhisply = new App();
         chaseWhisply.setLogoResourceId(R.drawable.ic_chase_whisply);

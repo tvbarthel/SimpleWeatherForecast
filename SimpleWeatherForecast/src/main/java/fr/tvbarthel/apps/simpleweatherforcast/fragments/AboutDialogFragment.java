@@ -3,6 +3,7 @@ package fr.tvbarthel.apps.simpleweatherforcast.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.method.LinkMovementMethod;
@@ -29,7 +30,8 @@ public class AboutDialogFragment extends DialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(true)
                 .setPositiveButton(getString(R.string.dialog_ok), null)
-                .setView(dialogView);
+                .setView(dialogView)
+                .setInverseBackgroundForced(true);
 
         return builder.create();
     }
