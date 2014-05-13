@@ -1,9 +1,11 @@
 package fr.tvbarthel.apps.simpleweatherforcast;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -128,6 +130,10 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
                 isActionConsumed = handleActionSupport();
                 break;
 
+            case R.id.menu_item_contact_us:
+                isActionConsumed = handleActionContactUs();
+                break;
+
             default:
                 isActionConsumed = super.onOptionsItemSelected(item);
         }
@@ -141,6 +147,17 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
             mSectionsPagerAdapter.notifyDataSetChanged();
             invalidatePageTransformer();
         }
+    }
+
+    private boolean handleActionContactUs() {
+        final String uriString = getString(R.string.contact_us_uri,
+                Uri.encode(getString(R.string.contact_us_email)),
+                Uri.encode(getString(R.string.contact_us_default_subject)));
+        final Uri mailToUri = Uri.parse(uriString);
+        Intent sendToIntent = new Intent(Intent.ACTION_SENDTO);
+        sendToIntent.setData(mailToUri);
+        startActivity(sendToIntent);
+        return true;
     }
 
     private boolean handleActionSupport() {

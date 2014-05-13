@@ -39,5 +39,9 @@
         android:orderInCategory="5"
         app:showAsAction="never" />
 
-
+    <item
+        android:id="@+id/menu_item_contact_us"
+        android:title="@string/menu_item_contact_us"
+        android:orderInCategory="6"
+        app:showAsAction="never" />
 </menu>
