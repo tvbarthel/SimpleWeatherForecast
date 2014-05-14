@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import fr.tvbarthel.apps.billing.SupportActivity;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.AboutDialogFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.ForecastFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.LicenseDialogFragment;
@@ -161,7 +162,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     }
 
     private boolean handleActionSupport() {
-        // TODO
+        startActivity(new Intent(this, SupportActivity.class));
         return true;
     }
 
