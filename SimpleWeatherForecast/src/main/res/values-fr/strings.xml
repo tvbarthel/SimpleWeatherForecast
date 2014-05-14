@@ -12,13 +12,19 @@
     <!-- More apps dialog fragment -->
     <string name="dialog_more_apps_title">Plus d\'applications</string>
     <string name="dialog_more_apps_simplethermometer_app_name">Simple Thermometer</string>
-    <string name="dialog_more_apps_simplethermometer_package_name">fr.tvbarthel.apps.simplethermometer</string>
     <string name="dialog_more_apps_chase_whisply_app_name">Chase Whisply</string>
-    <string name="dialog_more_apps_chase_whisply_package_name">fr.tvbarthel.games.chasewhisply</string>
+    <string name="dialog_more_apps_googly_zoo_app_name">Googly Zoo</string>
 
     <!-- Temperature unit picker dialog fragment -->
     <string name="dialog_temperature_unit_picker_title">Choisir l\'unité</string>
 
+    <!-- Temperature Units -->
+    <string name="temperature_unit_celsius">Celsius</string>
+    <string name="temperature_unit_celsius_symbol">°C</string>
+    <string name="temperature_unit_kelvin">Kelvin</string>
+    <string name="temperature_unit_kelvin_symbol">K</string>
+    <string name="temperature_unit_fahrenheit">Fahrenheit</string>
+    <string name="temperature_unit_fahrenheit_symbol">°F</string>
 
     <!-- dialog fragments -->
     <string name="dialog_ok">OK</string>

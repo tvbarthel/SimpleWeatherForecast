@@ -4,7 +4,7 @@
 
     <!-- License dialog fragment -->
     <string name="dialog_license_title">License</string>
-    <string name="dialog_license_content">
+    <string name="dialog_license_content" translatable="false">
         Copyright © 2014 tvbarthel.\n\nLicensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
     </string>
 
@@ -15,11 +15,11 @@
     <!-- More apps dialog fragment -->
     <string name="dialog_more_apps_title">More Apps</string>
     <string name="dialog_more_apps_simplethermometer_app_name">Simple Thermometer</string>
-    <string name="dialog_more_apps_simplethermometer_package_name">fr.tvbarthel.apps.simplethermometer</string>
+    <string name="dialog_more_apps_simplethermometer_package_name" translatable="false">fr.tvbarthel.apps.simplethermometer</string>
     <string name="dialog_more_apps_chase_whisply_app_name">Chase Whisply</string>
-    <string name="dialog_more_apps_chase_whisply_package_name">fr.tvbarthel.games.chasewhisply</string>
+    <string name="dialog_more_apps_chase_whisply_package_name" translatable="false">fr.tvbarthel.games.chasewhisply</string>
     <string name="dialog_more_apps_googly_zoo_app_name">Googly Zoo</string>
-    <string name="dialog_more_apps_googly_zoo_package_name">fr.tvbarthel.attempt.googlyzooapp</string>
+    <string name="dialog_more_apps_googly_zoo_package_name" translatable="false">fr.tvbarthel.attempt.googlyzooapp</string>
 
     <!-- Temperature unit picker dialog fragment -->
     <string name="dialog_temperature_unit_picker_title">Set unit</string>
@@ -33,10 +33,10 @@
     <string name="temperature_unit_fahrenheit_symbol">°F</string>
 
     <!-- Forecast Fragment -->
-    <string name="forecast_fragment_min_max_temperature">%1$d ~ %2$d</string>
+    <string name="forecast_fragment_min_max_temperature" translatable="false">%1$d ~ %2$d</string>
 
     <!-- OpenWeatherMap API -->
-    <string name="url_open_weather_map_api">http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&amp;APPID=c756ce72a59777bd32a5762e12e74057&amp;cnt=14&amp;mode=json&amp;lang=%1$s&amp;lat=%2$f&amp;lon=%3$f</string>
+    <string name="url_open_weather_map_api" translatable="false">http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&amp;APPID=c756ce72a59777bd32a5762e12e74057&amp;cnt=14&amp;mode=json&amp;lang=%1$s&amp;lat=%2$f&amp;lon=%3$f</string>
 
     <!-- dialog fragments -->
     <string name="dialog_ok">OK</string>
