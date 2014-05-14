@@ -32,7 +32,6 @@
             android:name="fr.tvbarthel.apps.simpleweatherforcast.SupportActivity"
             android:icon="@drawable/ic_action_support"
             android:label="@string/app_name"
-            android:parentActivityName=".MainActivity"
             android:theme="@style/SupportTheme" />
     </application>
 
