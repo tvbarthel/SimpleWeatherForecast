@@ -15,7 +15,7 @@
         android:padding="@dimen/support_list_padding"
         android:layout_alignParentTop="true"
         android:clipToPadding="false"
-        android:scrollbarStyle="outsideInset"
+        android:scrollbarStyle="outsideOverlay"
         android:listSelector="@android:color/transparent" />
 
     <ProgressBar
