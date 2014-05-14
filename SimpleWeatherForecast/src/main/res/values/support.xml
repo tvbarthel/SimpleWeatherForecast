@@ -20,7 +20,9 @@
     </style>
 
     <style name="SupportTheme.ActionBarStyle" parent="android:Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@color/support_second_color</item>
+        <item name="android:background">@color/black_translucent</item>
+        <!-- Support library compatibility -->
+        <item name="background">@color/black_translucent</item>
     </style>
 
     <style name="SupportTheme.ProgressBar" parent="android:Widget.ProgressBar.Horizontal">

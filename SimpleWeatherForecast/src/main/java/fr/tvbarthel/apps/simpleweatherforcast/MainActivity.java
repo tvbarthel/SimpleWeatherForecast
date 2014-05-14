@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import fr.tvbarthel.apps.billing.SupportActivity;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.AboutDialogFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.ForecastFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.LicenseDialogFragment;
@@ -162,7 +161,12 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     }
 
     private boolean handleActionSupport() {
-        startActivity(new Intent(this, SupportActivity.class));
+        final int colorSize = mBackgroundColors.length;
+        final int currentPosition = mViewPager.getCurrentItem();
+        final int currentColor = mBackgroundColors[currentPosition % colorSize];
+        final Intent intent = new Intent(this, SupportActivity.class);
+        intent.putExtra(SupportActivity.EXTRA_BG_COLOR, currentColor);
+        startActivity(intent);
         return true;
     }
 
