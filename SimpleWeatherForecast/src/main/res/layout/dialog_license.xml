@@ -2,32 +2,17 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:padding="16dp"
+    android:scrollbarStyle="outsideOverlay">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/dialog_license_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/dialog_license_title"
-            android:id="@+id/textView"
-            android:fontFamily="sans-serif-light"
-            android:textColor="@color/holo_blue" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/dialog_license_content"
-            android:id="@+id/dialog_license_content"
-            android:fontFamily="sans-serif-light"
-            android:layout_marginTop="8dp" />
-
-    </LinearLayout>
+        android:fontFamily="sans-serif-light"
+        android:text="@string/dialog_license_content"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </ScrollView>
