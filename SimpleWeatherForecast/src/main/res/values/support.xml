@@ -42,6 +42,7 @@
     <string name="support_key" translatable="false">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAicFRmNNgpkZMMkJHkGfOPk1KEQC+c9ZV8I9terRzgtARfvgFRK53kWIOQ1D1dTXLU6qY3l7MiYNarifVp4BplHQ9sUdzHkQ0MezW81FuBsVSIbr7ZBZVXLNB9wE47QqCqQzbOYJ0pYQGr4mGt3Ag1qftuLpcI1cP92VJOpm5ht5VbuVkFAJZOVyXJUAFtSwYHxXmWV9fuhFj6hOYR41y5oI0xVlCuZblvQuNTvXpENfODQZOYyNbewf+dkEdyD9mL+IJbSAD66OgeqXItfWQW8ICbecPtcPpeL6o68JlDcra5BxO6eOh6c/WejoXrrS1nYLYtYDp0TKw4yd2ikgNCwIDAQAB</string>
     <string name="support_title">Support free content app and help us bringing our open-source projects to life.</string>
     <string name="support_error">Fail to load coffee list. \n Please, check your network connection.</string>
+    <string name="support_thanks_positive_btn">Thanks !</string>
     <string name="support_has_supported_us">Thanks for your support!</string>
     <string name="support_thanks">We are very grateful for your support ! This %1$s will help us to develop more free content apps !</string>
     <string name="support_bar_text"> %1$d %%</string>

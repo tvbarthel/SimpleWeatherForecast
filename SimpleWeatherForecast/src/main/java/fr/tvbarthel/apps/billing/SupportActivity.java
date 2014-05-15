@@ -243,11 +243,7 @@ public class SupportActivity extends Activity {
                         //workaround to get the purchase since info == null when already owned
                         mIabHelper.consumeAsync(mPurchaseList.get(mSelectedPurchase), mConsumeListener);
                     }
-                } else {
-                    //display error
-                    makeToast(result.getMessage().substring(0, result.getMessage().indexOf('(')));
                 }
-
             }
         };
     }
@@ -372,7 +368,7 @@ public class SupportActivity extends Activity {
      */
     private void purchaseSuccess(Purchase info) {
         AlertDialog.Builder build = new AlertDialog.Builder(this);
-        build.setPositiveButton("Thanks !", null);
+        build.setPositiveButton(R.string.support_thanks_positive_btn, null);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         View thanksView = inflater.inflate(R.layout.support_thanks, null);
         if (thanksView != null) {
