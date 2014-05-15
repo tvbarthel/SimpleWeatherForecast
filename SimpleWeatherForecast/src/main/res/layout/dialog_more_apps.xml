@@ -10,4 +10,5 @@
     android:dividerHeight="@dimen/default_padding"
     android:drawSelectorOnTop="true"
     android:listSelector="@drawable/selector_more_apps"
-    android:padding="@dimen/default_padding" />
+    android:padding="@dimen/default_padding"
+    android:scrollbarStyle="outsideOverlay" />
