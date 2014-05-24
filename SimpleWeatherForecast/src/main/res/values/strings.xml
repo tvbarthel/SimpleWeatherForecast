@@ -51,6 +51,7 @@
     <string name="menu_item_more_apps">More Apps</string>
     <string name="menu_item_support">Buy us a coffee</string>
     <string name="menu_item_contact_us">Contact Us</string>
+    <string name="menu_item_thanks">Thanks!</string>
 
     <!-- Contact Us -->
     <string name="contact_us_email" translatable="false">tvbarthel@gmail.com</string>

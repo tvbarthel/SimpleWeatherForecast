@@ -1,6 +1,14 @@
 package fr.tvbarthel.apps.billing.utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import com.android.vending.billing.util.IabHelper;
+import com.android.vending.billing.util.IabResult;
 import com.android.vending.billing.util.Inventory;
+
+import fr.tvbarthel.apps.simpleweatherforcast.R;
 
 
 public class SupportUtils {
@@ -62,7 +70,7 @@ public class SupportUtils {
      * @param i user inventory
      * @return true if already purchased
      */
-    public static boolean hasPurchased(final Inventory i) {
+    private static boolean hasPurchased(final Inventory i) {
         if (i.hasPurchase(SKU_ESPRESSO) && i.getPurchase(SKU_ESPRESSO).getPurchaseState() == SUPPORT_STATE_PURCHASED) {
             return true;
         }
@@ -81,4 +89,77 @@ public class SupportUtils {
 
         return false;
     }
+
+
+    /**
+     * Check is a user is supporting us.
+     *
+     * @param context  a {@link android.content.Context}
+     * @param listener a {@link fr.tvbarthel.apps.billing.utils.SupportUtils.OnCheckSupportListener} used to deliver the response.
+     */
+    public static void checkSupport(Context context, final OnCheckSupportListener listener) {
+        final SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(context);
+        final int donateState = sharedPreferences.getInt(SupportUtils.SUPPORT_SHARED_KEY,
+                SupportUtils.SUPPORT_UNSET);
+        switch (donateState) {
+            case SupportUtils.SUPPORT_UNSET:
+                //retrieve info
+                final IabHelper helper = new IabHelper(context,
+                        context.getResources().getString(R.string.support_key));
+                helper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+                    @Override
+                    public void onIabSetupFinished(IabResult result) {
+                        if (result.isSuccess()) {
+                            helper.queryInventoryAsync(new IabHelper.QueryInventoryFinishedListener() {
+                                @Override
+                                public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+                                    if (result.isSuccess()) {
+                                        if (SupportUtils.hasPurchased(inv)) {
+                                            if(listener != null) {
+                                                listener.onCheckSupport(true);
+                                            }
+
+                                            //save it
+                                            final SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putInt(SupportUtils.SUPPORT_SHARED_KEY, SupportUtils.SUPPORT_DONATE);
+                                            editor.commit();
+
+                                            //release resources
+                                            helper.dispose();
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+                break;
+            case SupportUtils.SUPPORT_DONATE:
+                //user already support us
+                if(listener != null) {
+                    listener.onCheckSupport(true);
+                }
+                break;
+            case SupportUtils.SUPPORT_NOT_YET:
+                if(listener != null) {
+                    listener.onCheckSupport(false);
+                }
+                break;
+            default:
+                if(listener != null) {
+                    listener.onCheckSupport(false);
+                }
+        }
+    }
+
+    public static interface OnCheckSupportListener {
+        /**
+         * Called after we know if the user is supporting us or not.
+         *
+         * @param supporting true if the user is supporting us, false otherwise.
+         */
+        void onCheckSupport(boolean supporting);
+    }
+
 }

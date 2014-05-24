@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import fr.tvbarthel.apps.billing.utils.SupportUtils;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.AboutDialogFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.ForecastFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.LicenseDialogFragment;
@@ -55,6 +56,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     private AlphaForegroundColorSpan mAlphaForegroundColorSpan;
     private TypefaceSpan mTypefaceSpanLight;
     private int[] mBackgroundColors;
+    private Menu mMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,16 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        mMenu = menu;
+        // If the user is supporting us, add a thanks action.
+        SupportUtils.checkSupport(getApplicationContext(), new SupportUtils.OnCheckSupportListener() {
+            @Override
+            public void onCheckSupport(boolean supporting) {
+                if (supporting) {
+                    getMenuInflater().inflate(R.menu.thanks, mMenu);
+                }
+            }
+        });
         return true;
     }
 
@@ -134,6 +146,10 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
                 isActionConsumed = handleActionContactUs();
                 break;
 
+            case R.id.menu_item_thanks:
+                isActionConsumed = handleThanksButton();
+                break;
+
             default:
                 isActionConsumed = super.onOptionsItemSelected(item);
         }
@@ -147,6 +163,11 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
             mSectionsPagerAdapter.notifyDataSetChanged();
             invalidatePageTransformer();
         }
+    }
+
+    private boolean handleThanksButton() {
+        makeTextToast(R.string.support_has_supported_us);
+        return true;
     }
 
     private boolean handleActionContactUs() {

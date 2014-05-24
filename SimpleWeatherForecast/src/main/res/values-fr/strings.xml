@@ -36,6 +36,7 @@
     <string name="menu_item_more_apps">Plus d\'Apps</string>
     <string name="menu_item_support">Supportez nous</string>
     <string name="menu_item_contact_us">Contactez nous</string>
+    <string name="menu_item_thanks">Merci !</string>
 
     <!-- Contact Us -->
     <string name="contact_us_title">Contactez nous</string>
