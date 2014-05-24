@@ -20,15 +20,8 @@
 
     <!-- Temperature Units -->
     <string name="temperature_unit_celsius">Celsius</string>
-    <string name="temperature_unit_celsius_symbol">°C</string>
     <string name="temperature_unit_kelvin">Kelvin</string>
-    <string name="temperature_unit_kelvin_symbol">K</string>
     <string name="temperature_unit_fahrenheit">Fahrenheit</string>
-    <string name="temperature_unit_fahrenheit_symbol">°F</string>
-
-    <!-- dialog fragments -->
-    <string name="dialog_ok">OK</string>
-    <string name="dialog_cancel">Annuler</string>
 
     <!-- Toast messages -->
     <string name="toast_already_up_to_date">Déjà à jour.</string>
@@ -46,7 +39,5 @@
 
     <!-- Contact Us -->
     <string name="contact_us_title">Contactez nous</string>
-    <string name="contact_us_email">tvbarthel@gmail.com</string>
     <string name="contact_us_default_subject">[SimpleWeatherForecast] </string>
-    <string name="contact_us_uri">mailto:%1$s?subject=%2$s</string>
 </resources>

@@ -32,7 +32,7 @@ public class LicenseDialogFragment extends DialogFragment {
 
         dialogBuilder.setCancelable(true)
                 .setView(dialogView)
-                .setPositiveButton(getString(R.string.dialog_ok), null)
+                .setPositiveButton(android.R.string.ok, null)
                 .setTitle(R.string.dialog_license_title)
                 .setInverseBackgroundForced(true);
 

@@ -29,7 +29,7 @@ public class AboutDialogFragment extends DialogFragment {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(true)
-                .setPositiveButton(getString(R.string.dialog_ok), null)
+                .setPositiveButton(android.R.string.ok, null)
                 .setTitle(R.string.dialog_about_title)
                 .setView(dialogView)
                 .setInverseBackgroundForced(true);

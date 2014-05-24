@@ -26,21 +26,17 @@
 
     <!-- Temperature Units -->
     <string name="temperature_unit_celsius">Celsius</string>
-    <string name="temperature_unit_celsius_symbol">°C</string>
+    <string name="temperature_unit_celsius_symbol" translatable="false">°C</string>
     <string name="temperature_unit_kelvin">Kelvin</string>
-    <string name="temperature_unit_kelvin_symbol">K</string>
+    <string name="temperature_unit_kelvin_symbol" translatable="false">K</string>
     <string name="temperature_unit_fahrenheit">Fahrenheit</string>
-    <string name="temperature_unit_fahrenheit_symbol">°F</string>
+    <string name="temperature_unit_fahrenheit_symbol" translatable="false">°F</string>
 
     <!-- Forecast Fragment -->
     <string name="forecast_fragment_min_max_temperature" translatable="false">%1$d ~ %2$d</string>
 
     <!-- OpenWeatherMap API -->
     <string name="url_open_weather_map_api" translatable="false">http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&amp;APPID=c756ce72a59777bd32a5762e12e74057&amp;cnt=14&amp;mode=json&amp;lang=%1$s&amp;lat=%2$f&amp;lon=%3$f</string>
-
-    <!-- dialog fragments -->
-    <string name="dialog_ok">OK</string>
-    <string name="dialog_cancel">Cancel</string>
 
     <!-- Toast messages -->
     <string name="toast_already_up_to_date">Already up to date.</string>
@@ -57,8 +53,9 @@
     <string name="menu_item_contact_us">Contact Us</string>
 
     <!-- Contact Us -->
+    <string name="contact_us_email" translatable="false">tvbarthel@gmail.com</string>
+    <string name="contact_us_uri" translatable="false">mailto:%1$s?subject=%2$s</string>
     <string name="contact_us_title">Contact Us</string>
-    <string name="contact_us_email">tvbarthel@gmail.com</string>
     <string name="contact_us_default_subject">[SimpleWeatherForecast] </string>
-    <string name="contact_us_uri">mailto:%1$s?subject=%2$s</string>
+
 </resources>

@@ -44,7 +44,7 @@ public class TemperatureUnitPickerDialogFragment extends DialogFragment {
             }
         });
         builder.setCancelable(true);
-        builder.setNegativeButton(R.string.dialog_cancel, null);
+        builder.setNegativeButton(android.R.string.cancel, null);
         builder.setInverseBackgroundForced(true);
         return builder.create();
     }
