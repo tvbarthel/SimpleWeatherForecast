@@ -36,6 +36,12 @@ public class DonateCheckActivity extends Activity {
         checkDonation();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        hideToast();
+    }
+
     /**
      * @return true if user has already donate
      */
@@ -48,12 +54,23 @@ public class DonateCheckActivity extends Activity {
      *
      * @param text toast message
      */
-    public void makeToast(int text) {
+    protected void makeToast(int text) {
         if (mToast != null) {
             mToast.cancel();
         }
         mToast = Toast.makeText(this, text, Toast.LENGTH_LONG);
         mToast.show();
+    }
+
+
+    /**
+     * Hide the current toast if needed.
+     */
+    protected void hideToast() {
+        if (mToast != null) {
+            mToast.cancel();
+            mToast = null;
+        }
     }
 
     /**
