@@ -3,6 +3,7 @@ SimpleWeatherForecast
 
 A simple application that gives you the weather forecast for 14 days according to your location.
 
+![feature graphic](StoreListing/en-GB/feature_graphic.jpg)
 
 
 License
