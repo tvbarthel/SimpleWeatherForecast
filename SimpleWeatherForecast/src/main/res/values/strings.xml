@@ -10,7 +10,7 @@
 
     <!-- About dialog fragment -->
     <string name="dialog_about_title">About</string>
-    <string name="dialog_about_content">SimpleWeatherForecast is an open-source application developed by Vincent \"vbarthel\" Barthélémy, a student in Computer Engineering.\n\nCode source: https://github.com/tvbarthel/SimpleWeatherForecast\n\nThis application use the openweathermap API: http://openweathermap.org/</string>
+    <string name="dialog_about_content">SimpleWeatherForecast is an open-source application developed by Vincent \"vbarthel\" Barthélémy and Thomas \"tbarthel\" Barthélémy, two students in Computer Engineering.\n\nCode source: https://github.com/tvbarthel/SimpleWeatherForecast\n\nThis application use the openweathermap API: http://openweathermap.org/</string>
 
     <!-- More apps dialog fragment -->
     <string name="dialog_more_apps_title">More Apps</string>
