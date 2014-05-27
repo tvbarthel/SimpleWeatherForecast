@@ -11,3 +11,6 @@ Simple Weather Forecast is an open source application, it can't hide anything fr
 
 <b>Disclaimer</b>
 Developed by two students, this free and open-sourced application is distributed "as is", without any pretention.
+
+<b>Special thanks...</b>
+...to the XDA Android App Testers G+ community for its help during the beta.

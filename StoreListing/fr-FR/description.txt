@@ -11,3 +11,6 @@ Simple Weather Forecast est une application open source, elle ne peut rien vous 
 
 <b>Disclaimer</b>
 Développée par deux étudiants, cette application gratuite et open-source est livrée telle quelle, sans prétention aucune.
+
+<b>Remerciement special...</b>
+...à toute la communauté G+ XDA Android App Testers pour son aide pendant la beta test.
