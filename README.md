@@ -18,7 +18,7 @@ It doesn't collect any personal information.
 Developed by two students, this application is distributed "as is", without any pretention.
 
 ###Special thanks...
-...to the XDA Android App Testers G+ community for its help during the beta.
+...to the [XDA Android App Testers G+ community](https://plus.google.com/communities/100406373096097711894) for its help during the beta.
 
 
 License
