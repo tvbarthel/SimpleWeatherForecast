@@ -1,7 +1,7 @@
 SimpleWeatherForecast
 =====================
 
-A simple application that gives you the weather forecast for 14 days according to your location.
+[Download from Google Play Store](https://play.google.com/store/apps/details?id=fr.tvbarthel.apps.simpleweatherforcast)
 
 ![feature graphic](StoreListing/en-GB/feature_graphic.jpg)
 
