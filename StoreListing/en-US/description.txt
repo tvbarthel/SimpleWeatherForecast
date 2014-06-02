@@ -7,7 +7,7 @@ It doesn't collect any personal information.
 &rarr; Google Play billing service : This is only to offer the possibility of making donations to support our open-source developments. 
 
 <b>See for yourself!</b>
-Simple Weather Forecast is an open source application, it can't hide anything from you! You can explore its functionning at the following link https://github.com/tvbarthel/SimpleWeatherForecast
+Simple Weather Forecast is an open source application, it can't hide anything from you! You can explore its functioning at the following link https://github.com/tvbarthel/SimpleWeatherForecast
 
 <b>Disclaimer</b>
 Developed by two students, this free and open-sourced application is distributed "as is", without any pretention.
