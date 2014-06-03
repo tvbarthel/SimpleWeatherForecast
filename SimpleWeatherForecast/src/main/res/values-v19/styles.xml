@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/AppTheme.ActionBarStyle</item>
+        <item name="android:actionBarWidgetTheme">@style/AppTheme.ActionBarWidgetTheme</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <style name="AppTheme.ActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.PopupMenu" parent="@style/Widget.AppCompat.Light.PopupMenu">
+        <item name="android:popupBackground">@color/black_translucent_dark</item>
+    </style>
+
+    <style name="AppTheme.ActionBarWidgetTheme" parent="Theme.AppCompat">
+        <item name="android:popupMenuStyle">@style/AppTheme.PopupMenu</item>
+    </style>
+
+</resources>
