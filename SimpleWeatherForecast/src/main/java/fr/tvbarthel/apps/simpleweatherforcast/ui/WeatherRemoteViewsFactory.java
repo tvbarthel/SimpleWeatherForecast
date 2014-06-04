@@ -52,6 +52,7 @@ public class WeatherRemoteViewsFactory implements RemoteViewsService.RemoteViews
         final DailyForecastModel dailyForecast = mDailyForecasts.get(position);
         final RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.row_app_widget);
         remoteViews.setTextViewText(R.id.row_app_widget_temperature, "test temperature");
+        remoteViews.setOnClickFillInIntent(R.id.row_app_widget_root, new Intent());
         return remoteViews;
     }
 

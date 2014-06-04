@@ -2,6 +2,7 @@ package fr.tvbarthel.apps.simpleweatherforcast.receivers;
 
 
 import android.annotation.TargetApi;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -10,10 +11,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.widget.RemoteViews;
 
+import fr.tvbarthel.apps.simpleweatherforcast.MainActivity;
 import fr.tvbarthel.apps.simpleweatherforcast.R;
 import fr.tvbarthel.apps.simpleweatherforcast.services.AppWidgetService;
 
 public class WeatherWidgetReceiver extends AppWidgetProvider {
+
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -23,7 +26,6 @@ public class WeatherWidgetReceiver extends AppWidgetProvider {
             appWidgetManager.updateAppWidget(appWidgetId, layout);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -33,9 +35,16 @@ public class WeatherWidgetReceiver extends AppWidgetProvider {
         final Intent intent = new Intent(context, AppWidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
-        final RemoteViews remoteViews; remoteViews = new RemoteViews(context.getPackageName(), R.layout.app_widget);
+        final RemoteViews remoteViews;
+        remoteViews = new RemoteViews(context.getPackageName(), R.layout.app_widget);
         remoteViews.setRemoteAdapter(appWidgetId, R.id.app_widget_list_view, intent);
         remoteViews.setEmptyView(R.id.app_widget_list_view, R.id.app_widget_empty_view);
+
+        // Bind a click listener template for the contents of the weather list.
+        final Intent onClickIntent = new Intent(context, MainActivity.class);
+        final PendingIntent onClickPendingIntent = PendingIntent.getActivity(context, 0, onClickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setPendingIntentTemplate(R.id.app_widget_list_view, onClickPendingIntent);
+
         return remoteViews;
     }
 }
