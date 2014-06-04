@@ -26,7 +26,7 @@ public class DailyForecastJsonParser extends AsyncTask<String, Void, ArrayList<D
         return parse(params[0]);
     }
 
-    private ArrayList<DailyForecastModel> parse(final String json) {
+    public static ArrayList<DailyForecastModel> parse(final String json) {
         final ArrayList<DailyForecastModel> result = new ArrayList<DailyForecastModel>();
         if (json != null) {
             try {
@@ -42,7 +42,7 @@ public class DailyForecastJsonParser extends AsyncTask<String, Void, ArrayList<D
         return result;
     }
 
-    private DailyForecastModel parseDailyForecast(JSONObject jsonDailyForecast) {
+    private static DailyForecastModel parseDailyForecast(JSONObject jsonDailyForecast) {
         final DailyForecastModel model = new DailyForecastModel();
         model.setDateTime(parseDateTime(jsonDailyForecast));
         model.setHumidity(parseHumidity(jsonDailyForecast));
@@ -51,7 +51,7 @@ public class DailyForecastJsonParser extends AsyncTask<String, Void, ArrayList<D
         return model;
     }
 
-    private void parseTemperature(DailyForecastModel model, JSONObject dailyForecast) {
+    private static void parseTemperature(DailyForecastModel model, JSONObject dailyForecast) {
         try {
             JSONObject jsonTemperature = dailyForecast.getJSONObject(TAG_TEMPERATURE);
             model.setTemperature(parseDayTemperature(jsonTemperature));
@@ -65,20 +65,20 @@ public class DailyForecastJsonParser extends AsyncTask<String, Void, ArrayList<D
         }
     }
 
-    private Double parseDayTemperature(JSONObject temperature) {
+    private static Double parseDayTemperature(JSONObject temperature) {
         return parseDouble(temperature, TAG_TEMPERATURE_DAY, 0d);
     }
 
-    private Double parseMinTemperature(JSONObject temperature) {
+    private static Double parseMinTemperature(JSONObject temperature) {
         return parseDouble(temperature, TAG_TEMPERATURE_MIN, 0d);
     }
 
-    private Double parseMaxTemperature(JSONObject temperature) {
+    private static Double parseMaxTemperature(JSONObject temperature) {
         return parseDouble(temperature, TAG_TEMPERATURE_MAX, 0d);
     }
 
 
-    private Double parseDouble(JSONObject object, String tag, Double defaultValue) {
+    private static Double parseDouble(JSONObject object, String tag, Double defaultValue) {
         try {
             return object.getDouble(tag);
         } catch (JSONException exception) {
@@ -87,7 +87,7 @@ public class DailyForecastJsonParser extends AsyncTask<String, Void, ArrayList<D
         }
     }
 
-    private String parseWeatherDescription(JSONObject dailyForecast) {
+    private static String parseWeatherDescription(JSONObject dailyForecast) {
         String weatherDescription = "";
         try {
             weatherDescription = dailyForecast.getJSONArray(TAG_WEATHER).getJSONObject(0).getString(TAG_WEATHER_DESCRIPTION);
@@ -97,7 +97,7 @@ public class DailyForecastJsonParser extends AsyncTask<String, Void, ArrayList<D
         return weatherDescription;
     }
 
-    private int parseHumidity(JSONObject dailyForecast) {
+    private static int parseHumidity(JSONObject dailyForecast) {
         int humidity = 0;
         try {
             humidity = dailyForecast.getInt(TAG_HUMIDITY);
@@ -107,7 +107,7 @@ public class DailyForecastJsonParser extends AsyncTask<String, Void, ArrayList<D
         return humidity;
     }
 
-    private long parseDateTime(JSONObject dailyForecast) {
+    private static long parseDateTime(JSONObject dailyForecast) {
         long dateTime = 0;
         try {
             dateTime = dailyForecast.getLong(TAG_DATE_TIME);

@@ -33,6 +33,22 @@
             android:icon="@drawable/ic_action_support"
             android:label="@string/app_name"
             android:theme="@style/SupportTheme" />
+
+        <receiver android:name=".receivers.WeatherWidgetReceiver">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <!-- linking up xml file of appwidget-app_widget_provider to WeatherWidgetReceiver -->
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_provider" />
+        </receiver>
+
+        <service
+            android:name=".services.AppWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="false"/>
+
     </application>
 
 </manifest>
