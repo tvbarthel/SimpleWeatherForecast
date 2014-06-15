@@ -9,6 +9,15 @@ import android.location.LocationManager;
 
 public class LocationUtils {
 
+    public static String getBestCoarseProvider(Context context) {
+        //retrieve an instance of the LocationManager
+        final LocationManager locationManager = (LocationManager) context.getSystemService(Service.LOCATION_SERVICE);
+        //Get a location with a coarse accuracy
+        final Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+        return locationManager.getBestProvider(criteria, true);
+    }
+
     /**
      * Get the last known {@link android.location.Location} with a coarse accuracy.
      *

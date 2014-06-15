@@ -53,6 +53,10 @@
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
+        <service
+            android:name=".services.DailyForecastUpdateService"
+            android:exported="false" />
+
     </application>
 
 </manifest>

@@ -17,6 +17,10 @@ import fr.tvbarthel.apps.simpleweatherforcast.services.AppWidgetService;
 
 public class WeatherWidgetReceiver extends AppWidgetProvider {
 
+    //An intent Action used to notify a data change: text color, temperature value
+    // temperature unit etc.
+    public static final String APPWIDGET_DATA_CHANGED =
+            "fr.tvbarthel.apps.simpleweatherforcast.receivers.WeatherWidgetReceiver.DataChanged";
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {

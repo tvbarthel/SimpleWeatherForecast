@@ -9,6 +9,10 @@ import android.preference.PreferenceManager;
 import fr.tvbarthel.apps.simpleweatherforcast.R;
 
 public class SharedPreferenceUtils {
+
+    public static final long REFRESH_TIME_AUTO = 1000 * 60 * 60 * 2; // 2 hours in millis.
+    public static final long REFRESH_TIME_MANUAL = 1000 * 60 * 10; // 10 minutes.
+
     public static String KEY_LAST_UPDATE = "SharedPreferenceUtils.Key.LastUpdate";
     public static String KEY_LAST_KNOWN_JSON_WEATHER = "SharedPreferenceUtils.Key.LastKnownJsonWeather";
     public static String KEY_TEMPERATURE_UNIT_SYMBOL = "SharedPreferenceUtils.Key.TemperatureUnitSymbol";
@@ -49,6 +53,12 @@ public class SharedPreferenceUtils {
 
     public static void unregisterOnSharedPreferenceChangeListener(final Context context, SharedPreferences.OnSharedPreferenceChangeListener listener) {
         getDefaultSharedPreferences(context).unregisterOnSharedPreferenceChangeListener(listener);
+    }
+
+    public static boolean isWeatherOutdated(Context context, boolean isManualRefresh) {
+        final long refreshTimeInMillis = isManualRefresh ? REFRESH_TIME_MANUAL : REFRESH_TIME_AUTO;
+        final long lastUpdate = SharedPreferenceUtils.getLastUpdate(context);
+        return System.currentTimeMillis() - lastUpdate > refreshTimeInMillis;
     }
 
 }

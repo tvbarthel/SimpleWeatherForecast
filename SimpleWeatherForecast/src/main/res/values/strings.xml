@@ -59,4 +59,9 @@
     <string name="contact_us_title">Contact Us</string>
     <string name="contact_us_default_subject">[SimpleWeatherForecast] </string>
 
+    <!-- Error messages -->
+    <string name="error_message_server_not_available">Server not available, try again later</string>
+    <string name="error_message_malformed_url">Malformed Url</string>
+    <string name="error_message_io_exception">IO Exception</string>
+
 </resources>

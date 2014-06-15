@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +16,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.TypefaceSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,18 +35,13 @@ import fr.tvbarthel.apps.simpleweatherforcast.fragments.ForecastFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.LicenseDialogFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.MoreAppsDialogFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.TemperatureUnitPickerDialogFragment;
-import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonGetter;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonParser;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastModel;
+import fr.tvbarthel.apps.simpleweatherforcast.services.DailyForecastUpdateService;
 import fr.tvbarthel.apps.simpleweatherforcast.ui.AlphaForegroundColorSpan;
-import fr.tvbarthel.apps.simpleweatherforcast.utils.ConnectivityUtils;
-import fr.tvbarthel.apps.simpleweatherforcast.utils.LocationUtils;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.SharedPreferenceUtils;
 
 public class MainActivity extends ActionBarActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
-
-    private static final long REFRESH_TIME_AUTO = 1000 * 60 * 60 * 2; // 2 hours in millis.
-    private static final long REFRESH_TIME_MANUAL = 1000 * 60 * 10; // 10 minutes.
 
     private ForecastPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -85,7 +80,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         loadDailyForecast(lastKnownWeather);
 
         //Check if the last known weather is out dated.
-        if (isWeatherOutdated(REFRESH_TIME_AUTO) || lastKnownWeather == null) {
+        if (SharedPreferenceUtils.isWeatherOutdated(this, false) || lastKnownWeather == null) {
             updateDailyForecast();
         }
     }
@@ -162,6 +157,10 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
             mTemperatureUnit = SharedPreferenceUtils.getTemperatureUnitSymbol(this);
             mSectionsPagerAdapter.notifyDataSetChanged();
             invalidatePageTransformer();
+        } else if (SharedPreferenceUtils.KEY_LAST_UPDATE.equals(key)) {
+            Log.w("vbarthel", "weather update (sharedPreferencesChanges)");
+            final String lastKnownWeather = SharedPreferenceUtils.getLastKnownWeather(getApplicationContext());
+            loadDailyForecast(lastKnownWeather);
         }
     }
 
@@ -215,7 +214,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     }
 
     private boolean handleActionManualRefresh() {
-        if (isWeatherOutdated(REFRESH_TIME_MANUAL)) {
+        if (SharedPreferenceUtils.isWeatherOutdated(this, true)) {
             updateDailyForecast();
         } else {
             makeTextToast(R.string.toast_already_up_to_date);
@@ -252,28 +251,9 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         });
     }
 
-    private boolean isWeatherOutdated(long refreshTimeInMillis) {
-        final long lastUpdate = SharedPreferenceUtils.getLastUpdate(getApplicationContext());
-        return System.currentTimeMillis() - lastUpdate > refreshTimeInMillis;
-    }
 
     private void updateDailyForecast() {
-        if (ConnectivityUtils.isConnected(getApplicationContext())) {
-            final Location lastKnownLocation = LocationUtils.getLastKnownLocation(getApplicationContext());
-            if (lastKnownLocation != null) {
-                new DailyForecastJsonGetter(getApplicationContext()) {
-                    @Override
-                    protected void onPostExecute(String newJsondailyForecast) {
-                        super.onPostExecute(newJsondailyForecast);
-                        loadDailyForecast(newJsondailyForecast);
-                    }
-                }.execute(lastKnownLocation);
-            } else {
-                makeTextToast(R.string.toast_not_allowed_to_access_location);
-            }
-        } else {
-            makeTextToast(R.string.toast_no_connection_available);
-        }
+        DailyForecastUpdateService.startForUpdate(this);
     }
 
     private void makeTextToast(int stringResourceId) {
