@@ -12,6 +12,8 @@ import java.util.List;
 
 import fr.tvbarthel.apps.simpleweatherforcast.R;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastModel;
+import fr.tvbarthel.apps.simpleweatherforcast.utils.SharedPreferenceUtils;
+import fr.tvbarthel.apps.simpleweatherforcast.utils.TemperatureUtils;
 
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -51,7 +53,14 @@ public class WeatherRemoteViewsFactory implements RemoteViewsService.RemoteViews
     public RemoteViews getViewAt(int position) {
         final DailyForecastModel dailyForecast = mDailyForecasts.get(position);
         final RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.row_app_widget);
-        remoteViews.setTextViewText(R.id.row_app_widget_temperature, "test temperature");
+        final String temperatureUnit = SharedPreferenceUtils.getTemperatureUnitSymbol(mContext);
+        final long temperature = TemperatureUtils.convertTemperature(mContext, dailyForecast.getTemperature(), temperatureUnit);
+        final long minTemperature = TemperatureUtils.convertTemperature(mContext, dailyForecast.getMinTemperature(), temperatureUnit);
+        final long maxTemperature = TemperatureUtils.convertTemperature(mContext, dailyForecast.getMaxTemperature(), temperatureUnit);
+        remoteViews.setTextViewText(R.id.row_app_widget_temperature, temperature + temperatureUnit);
+        remoteViews.setTextViewText(R.id.row_app_widget_weather, dailyForecast.getDescription());
+        remoteViews.setTextViewText(R.id.row_app_widget_min_max, mContext.getString(
+                R.string.forecast_fragment_min_max_temperature, minTemperature, maxTemperature));
         remoteViews.setOnClickFillInIntent(R.id.row_app_widget_root, new Intent());
         return remoteViews;
     }

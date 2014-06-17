@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import fr.tvbarthel.apps.simpleweatherforcast.R;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastModel;
+import fr.tvbarthel.apps.simpleweatherforcast.utils.TemperatureUtils;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} that displays the weather forecast of one day.
@@ -34,21 +35,15 @@ public class ForecastFragment extends Fragment {
         final DailyForecastModel dailyForecastModel = arguments.getParcelable(ARGUMENT_MODEL);
         final String temperatureUnit = arguments.getString(ARGUMENT_TEMPERATURE_UNIT);
         if (dailyForecastModel != null) {
+            final long temperature = TemperatureUtils.convertTemperature(getActivity(),
+                    dailyForecastModel.getTemperature(), temperatureUnit);
+            final long minTemperature = TemperatureUtils.convertTemperature(getActivity(),
+                    dailyForecastModel.getMinTemperature(), temperatureUnit);
+            final long maxTemperature = TemperatureUtils.convertTemperature(getActivity(),
+                    dailyForecastModel.getMaxTemperature(), temperatureUnit);
+
             ((TextView) v.findViewById(R.id.fragment_forecast_day_temperature))
-                    .setText(String.valueOf(convertTemperature(dailyForecastModel.getTemperature(), temperatureUnit)) + temperatureUnit);
-
-			/* Not sure if people really want to see the humidity ~
-            final int humidity = dailyForecastModel.getHumidity();
-			if(humidity != 0) {
-				((TextView) v.findViewById(R.id.fragment_forecast_humidity))
-						.setText("Humidity " + String.valueOf(humidity) + "%");
-			} else {
-				(v.findViewById(R.id.fragment_forecast_humidity))
-						.setVisibility(View.GONE);
-			}*/
-
-            final long minTemperature = convertTemperature(dailyForecastModel.getMinTemperature(), temperatureUnit);
-            final long maxTemperature = convertTemperature(dailyForecastModel.getMaxTemperature(), temperatureUnit);
+                    .setText(temperature + temperatureUnit);
 
             ((TextView) v.findViewById(R.id.fragment_forecast_min_max)).setText(getString(R.string.forecast_fragment_min_max_temperature, minTemperature, maxTemperature));
 
@@ -58,13 +53,5 @@ public class ForecastFragment extends Fragment {
         return v;
     }
 
-    private long convertTemperature(double temperatureInCelsius, String temperatureUnit) {
-        double temperatureConverted = temperatureInCelsius;
-        if (temperatureUnit.equals(getString(R.string.temperature_unit_fahrenheit_symbol))) {
-            temperatureConverted = temperatureInCelsius * 1.8f + 32f;
-        } else if (temperatureUnit.equals(getString(R.string.temperature_unit_kelvin_symbol))) {
-            temperatureConverted = temperatureInCelsius + 273.15f;
-        }
-        return Math.round(temperatureConverted);
-    }
+
 }
