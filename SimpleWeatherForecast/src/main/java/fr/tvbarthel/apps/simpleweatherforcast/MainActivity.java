@@ -81,7 +81,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
         //Check if the last known weather is out dated.
         if (SharedPreferenceUtils.isWeatherOutdated(this, false) || lastKnownWeather == null) {
-            updateDailyForecast();
+            DailyForecastUpdateService.startForUpdate(this);
         }
     }
 
@@ -215,7 +215,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
     private boolean handleActionManualRefresh() {
         if (SharedPreferenceUtils.isWeatherOutdated(this, true)) {
-            updateDailyForecast();
+            DailyForecastUpdateService.startForUpdate(this);
         } else {
             makeTextToast(R.string.toast_already_up_to_date);
         }
@@ -249,11 +249,6 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
             public void onPageScrollStateChanged(int i) {
             }
         });
-    }
-
-
-    private void updateDailyForecast() {
-        DailyForecastUpdateService.startForUpdate(this);
     }
 
     private void makeTextToast(int stringResourceId) {
