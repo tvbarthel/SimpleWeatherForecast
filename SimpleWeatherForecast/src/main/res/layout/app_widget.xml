@@ -7,7 +7,9 @@
     <ListView
         android:id="@+id/app_widget_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:dividerHeight="0dp"
+        android:divider="@android:color/transparent"/>
 
     <ProgressBar
         android:id="@+id/app_widget_empty_view"

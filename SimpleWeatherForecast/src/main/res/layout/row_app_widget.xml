@@ -6,30 +6,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/default_padding">
+    android:alpha="0.9"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/row_app_widget_weather"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/row_app_widget_background"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/white"
-        tools:text="pluies modérées" />
+        android:orientation="vertical"
+        tools:background="@color/holo_blue"
+        android:padding="@dimen/default_padding">
 
-    <TextView
-        android:id="@+id/row_app_widget_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/white"
-        tools:text="20.4°C" />
+        <TextView
+            android:id="@+id/row_app_widget_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@android:color/white"
+            tools:text="Mercredi 18 Juin"/>
 
-    <TextView
-        android:id="@+id/row_app_widget_min_max"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/white"
-        tools:text="12~22" />
+        <TextView
+            android:id="@+id/row_app_widget_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            tools:text="pluies modérées" />
+
+        <TextView
+            android:id="@+id/row_app_widget_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            tools:text="20.4°C" />
+
+        <TextView
+            android:id="@+id/row_app_widget_min_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            tools:text="12~22" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row_app_widget_gradient"
+        tools:background="@drawable/bg_blue_purple"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="20dp" />
+
+
 </LinearLayout>
