@@ -8,8 +8,10 @@
         android:id="@+id/app_widget_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="0dp"
-        android:divider="@android:color/transparent"/>
+        android:background="@color/app_widget_background"
+        android:clipToPadding="false"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/app_widget_divider_height" />
 
     <ProgressBar
         android:id="@+id/app_widget_empty_view"

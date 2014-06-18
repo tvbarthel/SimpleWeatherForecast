@@ -9,4 +9,7 @@
     <!-- More apps dialog fragment -->
     <dimen name="dialog_more_app_app_name_padding">32dp</dimen>
     <dimen name="dialog_more_app_logo_padding">8dp</dimen>
+
+    <!-- App Widget -->
+    <dimen name="app_widget_divider_height">4dp</dimen>
 </resources>

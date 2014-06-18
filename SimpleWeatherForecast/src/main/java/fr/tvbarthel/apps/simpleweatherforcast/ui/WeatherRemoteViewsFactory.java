@@ -24,7 +24,6 @@ public class WeatherRemoteViewsFactory implements RemoteViewsService.RemoteViews
     private Context mContext;
     private int mAppWidgetId;
     private List<DailyForecastModel> mDailyForecasts;
-    private int[] mGradientDrawables;
     private int[] mColors;
     private SimpleDateFormat mSimpleDateFormat;
 
@@ -37,12 +36,6 @@ public class WeatherRemoteViewsFactory implements RemoteViewsService.RemoteViews
 
     @Override
     public void onCreate() {
-        mGradientDrawables = new int[]{R.drawable.bg_blue_purple,
-                R.drawable.bg_purple_yellow,
-                R.drawable.bg_yellow_red,
-                R.drawable.bg_red_green,
-                R.drawable.bg_green_blue};
-
         mColors = new int[]{R.color.holo_blue,
                 R.color.holo_purple,
                 R.color.holo_yellow,
@@ -71,18 +64,12 @@ public class WeatherRemoteViewsFactory implements RemoteViewsService.RemoteViews
         final RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.row_app_widget);
         final String temperatureUnit = SharedPreferenceUtils.getTemperatureUnitSymbol(mContext);
         final long temperature = TemperatureUtils.convertTemperature(mContext, dailyForecast.getTemperature(), temperatureUnit);
-        final long minTemperature = TemperatureUtils.convertTemperature(mContext, dailyForecast.getMinTemperature(), temperatureUnit);
-        final long maxTemperature = TemperatureUtils.convertTemperature(mContext, dailyForecast.getMaxTemperature(), temperatureUnit);
-        final int gradient = mGradientDrawables[position % mGradientDrawables.length];
         final int backgroundColor = mColors[position % mColors.length];
         final String date = mSimpleDateFormat.format(dailyForecast.getDateTime() * 1000);
 
         remoteViews.setTextViewText(R.id.row_app_widget_date, date);
         remoteViews.setTextViewText(R.id.row_app_widget_temperature, temperature + temperatureUnit);
         remoteViews.setTextViewText(R.id.row_app_widget_weather, dailyForecast.getDescription());
-        remoteViews.setTextViewText(R.id.row_app_widget_min_max, mContext.getString(
-                R.string.forecast_fragment_min_max_temperature, minTemperature, maxTemperature));
-        remoteViews.setInt(R.id.row_app_widget_gradient, "setBackgroundResource", gradient);
         remoteViews.setInt(R.id.row_app_widget_background, "setBackgroundResource", backgroundColor);
         remoteViews.setOnClickFillInIntent(R.id.row_app_widget_root, new Intent());
 

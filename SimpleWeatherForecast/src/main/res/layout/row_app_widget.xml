@@ -6,7 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:alpha="0.9"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,24 +13,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:background="@color/holo_blue"
-        android:padding="@dimen/default_padding">
+        android:padding="@dimen/default_padding"
+        tools:background="@color/holo_blue">
 
         <TextView
             android:id="@+id/row_app_widget_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="12dp"
             android:layout_marginBottom="4dp"
+            android:fontFamily="sans-serif-light"
             android:textColor="@android:color/white"
-            tools:text="Mercredi 18 Juin"/>
+            tools:text="Mercredi 18 Juin" />
 
         <TextView
             android:id="@+id/row_app_widget_weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:fontFamily="sans-serif-light"
             android:textColor="@android:color/white"
             tools:text="pluies modérées" />
 
@@ -40,25 +40,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:fontFamily="sans-serif-light"
             android:textColor="@android:color/white"
             tools:text="20.4°C" />
 
-        <TextView
-            android:id="@+id/row_app_widget_min_max"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@android:color/white"
-            tools:text="12~22" />
-
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/row_app_widget_gradient"
-        tools:background="@drawable/bg_blue_purple"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="20dp" />
-
 
 </LinearLayout>
