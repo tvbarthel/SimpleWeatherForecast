@@ -26,7 +26,6 @@ import com.nineoldandroids.view.ViewHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 
 import fr.tvbarthel.apps.billing.utils.SupportUtils;
@@ -52,6 +51,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     private TypefaceSpan mTypefaceSpanLight;
     private int[] mBackgroundColors;
     private Menu mMenu;
+    private SimpleDateFormat mActionBarTitleDateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +65,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
         mAlphaForegroundColorSpan = new AlphaForegroundColorSpan(Color.WHITE);
         mTypefaceSpanLight = new TypefaceSpan("sans-serif-light");
+        mActionBarTitleDateFormat = new SimpleDateFormat("EEEE dd MMMM", Locale.getDefault());
 
         initActionBar();
         initViewPager();
@@ -328,8 +329,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
     private String getActionBarTitle(int currentPosition) {
         final DailyForecastModel currentModel = mSectionsPagerAdapter.getModel(currentPosition);
-        final Date dateFromUnixTimeStamp = new Date(currentModel.getDateTime() * 1000);
-        return new SimpleDateFormat("EEEE dd MMMM", Locale.getDefault()).format(dateFromUnixTimeStamp);
+        return mActionBarTitleDateFormat.format(currentModel.getDateTime() * 1000);
     }
 
 

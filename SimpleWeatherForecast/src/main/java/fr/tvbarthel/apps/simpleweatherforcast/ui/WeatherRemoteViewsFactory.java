@@ -9,7 +9,6 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -76,7 +75,7 @@ public class WeatherRemoteViewsFactory implements RemoteViewsService.RemoteViews
         final long maxTemperature = TemperatureUtils.convertTemperature(mContext, dailyForecast.getMaxTemperature(), temperatureUnit);
         final int gradient = mGradientDrawables[position % mGradientDrawables.length];
         final int backgroundColor = mColors[position % mColors.length];
-        final String date = mSimpleDateFormat.format(new Date(dailyForecast.getDateTime() * 1000));
+        final String date = mSimpleDateFormat.format(dailyForecast.getDateTime() * 1000);
 
         remoteViews.setTextViewText(R.id.row_app_widget_date, date);
         remoteViews.setTextViewText(R.id.row_app_widget_temperature, temperature + temperatureUnit);
@@ -86,7 +85,7 @@ public class WeatherRemoteViewsFactory implements RemoteViewsService.RemoteViews
         remoteViews.setInt(R.id.row_app_widget_gradient, "setBackgroundResource", gradient);
         remoteViews.setInt(R.id.row_app_widget_background, "setBackgroundResource", backgroundColor);
         remoteViews.setOnClickFillInIntent(R.id.row_app_widget_root, new Intent());
-        
+
         return remoteViews;
     }
 
