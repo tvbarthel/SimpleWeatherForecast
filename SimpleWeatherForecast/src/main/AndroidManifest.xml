@@ -39,7 +39,9 @@
             android:name=".receivers.WeatherWidgetReceiver"
             android:enabled="@bool/remote_views_service_supported">
             <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name=".receivers.WeatherWidgetReceiver.APPWIDGET_DATA_CHANGED" />
             </intent-filter>
             <!-- linking up xml file of appwidget-app_widget_provider to WeatherWidgetReceiver -->
             <meta-data

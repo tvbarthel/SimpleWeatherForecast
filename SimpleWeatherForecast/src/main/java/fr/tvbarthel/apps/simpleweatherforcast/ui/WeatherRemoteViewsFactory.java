@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Locale;
 
 import fr.tvbarthel.apps.simpleweatherforcast.R;
+import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonParser;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastModel;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.SharedPreferenceUtils;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.TemperatureUtils;
@@ -26,10 +27,10 @@ public class WeatherRemoteViewsFactory implements RemoteViewsService.RemoteViews
     private List<DailyForecastModel> mDailyForecasts;
     private int[] mColors;
     private SimpleDateFormat mSimpleDateFormat;
+    private String mTemperatureUnit;
 
-    public WeatherRemoteViewsFactory(Context context, Intent intent, List<DailyForecastModel> dailyForecasts) {
+    public WeatherRemoteViewsFactory(Context context, Intent intent) {
         mContext = context;
-        mDailyForecasts = dailyForecasts;
         mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         mSimpleDateFormat = new SimpleDateFormat("EEEE dd MMMM", Locale.getDefault());
     }
@@ -45,7 +46,9 @@ public class WeatherRemoteViewsFactory implements RemoteViewsService.RemoteViews
 
     @Override
     public void onDataSetChanged() {
-
+        final String lastKnownWeather = SharedPreferenceUtils.getLastKnownWeather(mContext);
+        mDailyForecasts = DailyForecastJsonParser.parse(lastKnownWeather);
+        mTemperatureUnit = SharedPreferenceUtils.getTemperatureUnitSymbol(mContext);
     }
 
     @Override
@@ -62,13 +65,12 @@ public class WeatherRemoteViewsFactory implements RemoteViewsService.RemoteViews
     public RemoteViews getViewAt(int position) {
         final DailyForecastModel dailyForecast = mDailyForecasts.get(position);
         final RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.row_app_widget);
-        final String temperatureUnit = SharedPreferenceUtils.getTemperatureUnitSymbol(mContext);
-        final long temperature = TemperatureUtils.convertTemperature(mContext, dailyForecast.getTemperature(), temperatureUnit);
+        final long temperature = TemperatureUtils.convertTemperature(mContext, dailyForecast.getTemperature(), mTemperatureUnit);
         final int backgroundColor = mColors[position % mColors.length];
         final String date = mSimpleDateFormat.format(dailyForecast.getDateTime() * 1000);
 
         remoteViews.setTextViewText(R.id.row_app_widget_date, date);
-        remoteViews.setTextViewText(R.id.row_app_widget_temperature, temperature + temperatureUnit);
+        remoteViews.setTextViewText(R.id.row_app_widget_temperature, temperature + mTemperatureUnit);
         remoteViews.setTextViewText(R.id.row_app_widget_weather, dailyForecast.getDescription());
         remoteViews.setInt(R.id.row_app_widget_background, "setBackgroundResource", backgroundColor);
         remoteViews.setOnClickFillInIntent(R.id.row_app_widget_root, new Intent());

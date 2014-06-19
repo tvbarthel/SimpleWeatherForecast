@@ -16,7 +16,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.TypefaceSpan;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +35,7 @@ import fr.tvbarthel.apps.simpleweatherforcast.fragments.MoreAppsDialogFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.fragments.TemperatureUnitPickerDialogFragment;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonParser;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastModel;
+import fr.tvbarthel.apps.simpleweatherforcast.receivers.WeatherWidgetReceiver;
 import fr.tvbarthel.apps.simpleweatherforcast.services.DailyForecastUpdateService;
 import fr.tvbarthel.apps.simpleweatherforcast.ui.AlphaForegroundColorSpan;
 import fr.tvbarthel.apps.simpleweatherforcast.utils.SharedPreferenceUtils;
@@ -158,8 +158,12 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
             mTemperatureUnit = SharedPreferenceUtils.getTemperatureUnitSymbol(this);
             mSectionsPagerAdapter.notifyDataSetChanged();
             invalidatePageTransformer();
+
+            // Broadcast change to the widgets
+            Intent intent = new Intent(this, WeatherWidgetReceiver.class);
+            intent.setAction(WeatherWidgetReceiver.APPWIDGET_DATA_CHANGED);
+            sendBroadcast(intent);
         } else if (SharedPreferenceUtils.KEY_LAST_UPDATE.equals(key)) {
-            Log.w("vbarthel", "weather update (sharedPreferencesChanges)");
             final String lastKnownWeather = SharedPreferenceUtils.getLastKnownWeather(getApplicationContext());
             loadDailyForecast(lastKnownWeather);
         }
