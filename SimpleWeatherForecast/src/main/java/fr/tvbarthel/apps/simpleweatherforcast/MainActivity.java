@@ -42,6 +42,8 @@ import fr.tvbarthel.apps.simpleweatherforcast.utils.SharedPreferenceUtils;
 
 public class MainActivity extends ActionBarActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    public static final String EXTRA_PAGE_POSITION = "fr.tvbarthel.apps.simpleweatherforcast.MainActivity.Extra.PagePosition";
+
     private ForecastPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private Toast mTextToast;
@@ -91,6 +93,12 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         super.onPause();
         SharedPreferenceUtils.unregisterOnSharedPreferenceChangeListener(this, this);
         hideToast();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
     }
 
     @Override
@@ -276,7 +284,15 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
                 protected void onPostExecute(ArrayList<DailyForecastModel> dailyForecastModels) {
                     super.onPostExecute(dailyForecastModels);
                     mSectionsPagerAdapter.updateModels(dailyForecastModels);
-                    invalidatePageTransformer();
+
+                    final Intent intent = getIntent();
+                    if (intent != null && intent.hasExtra(EXTRA_PAGE_POSITION)) {
+                        final int position = intent.getIntExtra(EXTRA_PAGE_POSITION, 0);
+                        mViewPager.setCurrentItem(position);
+                        intent.removeExtra(EXTRA_PAGE_POSITION);
+                    } else {
+                        invalidatePageTransformer();
+                    }
                 }
             }.execute(jsonDailyForecast);
         }

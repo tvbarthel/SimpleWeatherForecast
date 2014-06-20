@@ -11,7 +11,9 @@
         android:background="@color/app_widget_background"
         android:clipToPadding="false"
         android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/app_widget_divider_height" />
+        android:dividerHeight="@dimen/app_widget_divider_height"
+        android:drawSelectorOnTop="true"
+        android:listSelector="@drawable/list_selector_app_widget" />
 
     <ProgressBar
         android:id="@+id/app_widget_empty_view"

@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import fr.tvbarthel.apps.simpleweatherforcast.MainActivity;
 import fr.tvbarthel.apps.simpleweatherforcast.R;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastJsonParser;
 import fr.tvbarthel.apps.simpleweatherforcast.openweathermap.DailyForecastModel;
@@ -73,7 +74,9 @@ public class WeatherRemoteViewsFactory implements RemoteViewsService.RemoteViews
         remoteViews.setTextViewText(R.id.row_app_widget_temperature, temperature + mTemperatureUnit);
         remoteViews.setTextViewText(R.id.row_app_widget_weather, dailyForecast.getDescription());
         remoteViews.setInt(R.id.row_app_widget_background, "setBackgroundResource", backgroundColor);
-        remoteViews.setOnClickFillInIntent(R.id.row_app_widget_root, new Intent());
+        final Intent fillInIntent = new Intent();
+        fillInIntent.putExtra(MainActivity.EXTRA_PAGE_POSITION, position);
+        remoteViews.setOnClickFillInIntent(R.id.row_app_widget_root, fillInIntent);
 
         return remoteViews;
     }

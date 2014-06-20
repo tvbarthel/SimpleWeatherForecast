@@ -20,5 +20,6 @@
 
     <!-- App Widget -->
     <color name="app_widget_background">#77000000</color>
+    <color name="app_widget_list_selector_pressed">#33000000</color>
 
 </resources>
