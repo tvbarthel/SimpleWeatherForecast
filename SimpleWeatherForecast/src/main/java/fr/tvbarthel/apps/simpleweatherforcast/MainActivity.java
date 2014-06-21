@@ -19,6 +19,7 @@ import android.text.style.TypefaceSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.nineoldandroids.view.ViewHelper;
@@ -54,6 +55,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     private int[] mBackgroundColors;
     private Menu mMenu;
     private SimpleDateFormat mActionBarTitleDateFormat;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,8 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         mAlphaForegroundColorSpan = new AlphaForegroundColorSpan(Color.WHITE);
         mTypefaceSpanLight = new TypefaceSpan("sans-serif-light");
         mActionBarTitleDateFormat = new SimpleDateFormat("EEEE dd MMMM", Locale.getDefault());
+
+        mProgressBar = (ProgressBar) findViewById(R.id.activity_main_progress_bar);
 
         initActionBar();
         initViewPager();
@@ -243,7 +247,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
     private void initViewPager() {
         mSectionsPagerAdapter = new ForecastPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (ViewPager) findViewById(R.id.activity_main_view_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setPageTransformer(true, new ForecastPageTransformer());
         mViewPager.setOffscreenPageLimit(2);
@@ -278,11 +282,13 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     }
 
     private void loadDailyForecast(String jsonDailyForecast) {
+        mProgressBar.setVisibility(View.VISIBLE);
         if (jsonDailyForecast != null) {
             new DailyForecastJsonParser() {
                 @Override
                 protected void onPostExecute(ArrayList<DailyForecastModel> dailyForecastModels) {
                     super.onPostExecute(dailyForecastModels);
+                    mProgressBar.setVisibility(View.INVISIBLE);
                     mSectionsPagerAdapter.updateModels(dailyForecastModels);
 
                     final Intent intent = getIntent();

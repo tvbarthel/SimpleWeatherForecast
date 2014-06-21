@@ -1,6 +1,21 @@
-<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pager"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="fr.tvbarthel.apps.simpleweatherforcast.MainActivity" />
+    android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/activity_main_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="fr.tvbarthel.apps.simpleweatherforcast.MainActivity" />
+
+    <ProgressBar
+        android:id="@+id/activity_main_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
+
+</FrameLayout>
+
+
