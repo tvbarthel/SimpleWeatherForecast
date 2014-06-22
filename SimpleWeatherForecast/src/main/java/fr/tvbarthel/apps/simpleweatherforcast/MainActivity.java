@@ -56,6 +56,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     private Menu mMenu;
     private SimpleDateFormat mActionBarTitleDateFormat;
     private ProgressBar mProgressBar;
+    private String mLoadedWeather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +82,17 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     protected void onResume() {
         super.onResume();
         final String lastKnownWeather = SharedPreferenceUtils.getLastKnownWeather(getApplicationContext());
+        final Intent intent = getIntent();
         SharedPreferenceUtils.registerOnSharedPreferenceChangeListener(this, this);
 
-        //Load the last known weather
-        loadDailyForecast(lastKnownWeather);
+        if (mLoadedWeather != lastKnownWeather) {
+            //Load the last known weather
+            loadDailyForecast(lastKnownWeather);
+        } else if (intent != null && intent.hasExtra(EXTRA_PAGE_POSITION)) {
+            final int position = intent.getIntExtra(EXTRA_PAGE_POSITION, 0);
+            mViewPager.setCurrentItem(position, true);
+            intent.removeExtra(EXTRA_PAGE_POSITION);
+        }
 
         //Check if the last known weather is out dated.
         if (SharedPreferenceUtils.isWeatherOutdated(this, false) || lastKnownWeather == null) {
@@ -233,6 +241,9 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     private boolean handleActionManualRefresh() {
         if (SharedPreferenceUtils.isWeatherOutdated(this, true)) {
             DailyForecastUpdateService.startForUpdate(this);
+            mSectionsPagerAdapter.clear();
+            mLoadedWeather = null;
+            mProgressBar.setVisibility(View.VISIBLE);
         } else {
             makeTextToast(R.string.toast_already_up_to_date);
         }
@@ -281,13 +292,14 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         }
     }
 
-    private void loadDailyForecast(String jsonDailyForecast) {
+    private void loadDailyForecast(final String jsonDailyForecast) {
         mProgressBar.setVisibility(View.VISIBLE);
         if (jsonDailyForecast != null) {
             new DailyForecastJsonParser() {
                 @Override
                 protected void onPostExecute(ArrayList<DailyForecastModel> dailyForecastModels) {
                     super.onPostExecute(dailyForecastModels);
+                    mLoadedWeather = jsonDailyForecast;
                     mProgressBar.setVisibility(View.INVISIBLE);
                     mSectionsPagerAdapter.updateModels(dailyForecastModels);
 
@@ -389,6 +401,11 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         public void updateModels(ArrayList<DailyForecastModel> newModels) {
             mDailyForecastModels.clear();
             mDailyForecastModels.addAll(newModels);
+            notifyDataSetChanged();
+        }
+
+        public void clear() {
+            mDailyForecastModels.clear();
             notifyDataSetChanged();
         }
 
