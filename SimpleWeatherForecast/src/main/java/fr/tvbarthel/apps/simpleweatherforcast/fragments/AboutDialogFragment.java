@@ -3,7 +3,6 @@ package fr.tvbarthel.apps.simpleweatherforcast.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.method.LinkMovementMethod;

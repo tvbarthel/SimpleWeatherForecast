@@ -11,15 +11,15 @@ import java.util.ArrayList;
 
 public class DailyForecastJsonParser extends AsyncTask<String, Void, ArrayList<DailyForecastModel>> {
 
-    private static String TAG_WEATHER_LIST = "list";
-    private static String TAG_HUMIDITY = "humidity";
-    private static String TAG_WEATHER = "weather";
-    private static String TAG_WEATHER_DESCRIPTION = "description";
-    private static String TAG_TEMPERATURE = "temp";
-    private static String TAG_TEMPERATURE_DAY = "day";
-    private static String TAG_TEMPERATURE_MIN = "min";
-    private static String TAG_TEMPERATURE_MAX = "max";
-    private static String TAG_DATE_TIME = "dt";
+    private static final String TAG_WEATHER_LIST = "list";
+    private static final String TAG_HUMIDITY = "humidity";
+    private static final String TAG_WEATHER = "weather";
+    private static final String TAG_WEATHER_DESCRIPTION = "description";
+    private static final String TAG_TEMPERATURE = "temp";
+    private static final String TAG_TEMPERATURE_DAY = "day";
+    private static final String TAG_TEMPERATURE_MIN = "min";
+    private static final String TAG_TEMPERATURE_MAX = "max";
+    private static final String TAG_DATE_TIME = "dt";
 
     @Override
     protected ArrayList<DailyForecastModel> doInBackground(String... params) {

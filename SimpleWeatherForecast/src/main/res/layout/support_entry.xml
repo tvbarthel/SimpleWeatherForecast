@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
+            tools:text="Medium Text"
             android:textStyle="bold"
             android:textColor="@color/support_text"
             android:id="@+id/support_entry_title"
@@ -32,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Medium Text"
+            tools:text="Medium Text"
             android:fontFamily="sans-serif-light"
             android:textColor="@color/support_text"
             android:id="@+id/support_entry_price"
@@ -99,7 +100,7 @@
 
         <TextView
             android:id="@+id/support_detail_coffee_value"
-            android:text="50%"
+            tools:text="50%"
             android:textStyle="italic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -142,7 +143,7 @@
 
         <TextView
             android:id="@+id/support_detail_energy_value"
-            android:text="25%"
+            tools:text="25%"
             android:textStyle="italic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -185,7 +186,7 @@
 
         <TextView
             android:id="@+id/support_detail_candy_value"
-            android:text="75%"
+            tools:text="75%"
             android:textStyle="italic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

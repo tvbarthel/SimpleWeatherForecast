@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="scattered cloud"
+        tools:text="scattered cloud"
         android:id="@+id/fragment_forecast_weather_description"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/text_palette_one"
@@ -21,25 +22,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="22°C"
+        tools:text="22°C"
         android:id="@+id/fragment_forecast_day_temperature"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/text_palette_one"
         android:textSize="@dimen/text_large"
         android:fontFamily="sans-serif-light" />
-
-    <!--
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="humidity 85%"
-        android:id="@+id/fragment_forecast_humidity"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/text_palette_one"
-        android:textSize="@dimen/text_medium"
-        android:fontFamily="sans-serif-light" />
-    -->
 
     <TextView
         android:layout_width="wrap_content"
