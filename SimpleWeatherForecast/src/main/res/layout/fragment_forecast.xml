@@ -8,12 +8,12 @@
     android:gravity="center">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         tools:text="scattered cloud"
         android:id="@+id/fragment_forecast_weather_description"
-        android:layout_gravity="center_horizontal"
+        android:gravity="center"
         android:textColor="@color/text_palette_one"
         android:textSize="@dimen/text_medium"
         android:fontFamily="sans-serif-light" />
