@@ -85,8 +85,11 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         final Intent intent = getIntent();
         SharedPreferenceUtils.registerOnSharedPreferenceChangeListener(this, this);
 
-        if (mLoadedWeather != lastKnownWeather) {
-            //Load the last known weather
+        if (lastKnownWeather == null) {
+            // There is no forecast, it should be the first launch
+            mProgressBar.setVisibility(View.VISIBLE);
+        } else if (mLoadedWeather != lastKnownWeather) {
+            // Load the last known weather
             loadDailyForecast(lastKnownWeather);
         } else if (intent != null && intent.hasExtra(EXTRA_PAGE_POSITION)) {
             final int position = intent.getIntExtra(EXTRA_PAGE_POSITION, 0);
