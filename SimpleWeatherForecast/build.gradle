@@ -36,8 +36,8 @@ android {
     }
 
     testOptions {
-        resultsDir = "$project.rootDir/TestOutput/results"
-        reportDir ="$project.rootDir/TestOutput/reports"
+        resultsDir = "$project.projectDir/testOutput/results"
+        reportDir = "$project.projectDir/testOutput/reports"
     }
 }
 
