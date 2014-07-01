@@ -34,6 +34,11 @@ android {
     packagingOptions {
         exclude 'LICENSE.txt'
     }
+
+    testOptions {
+        resultsDir = "$project.rootDir/TestOutput/results"
+        reportDir ="$project.rootDir/TestOutput/reports"
+    }
 }
 
 dependencies {
