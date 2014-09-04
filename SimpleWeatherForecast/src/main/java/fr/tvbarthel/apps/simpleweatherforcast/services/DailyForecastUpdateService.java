@@ -72,7 +72,7 @@ public class DailyForecastUpdateService extends Service implements LocationListe
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (ACTION_UPDATE.equals(intent.getAction()) && !mIsUpdatingTemperature) {
+        if (intent != null && ACTION_UPDATE.equals(intent.getAction()) && !mIsUpdatingTemperature) {
             if (ConnectivityUtils.isConnected(getApplicationContext())) {
                 mIsUpdatingTemperature = true;
                 // First get a new location
