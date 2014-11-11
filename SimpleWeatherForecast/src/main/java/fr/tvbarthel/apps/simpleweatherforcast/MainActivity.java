@@ -2,9 +2,11 @@ package fr.tvbarthel.apps.simpleweatherforcast;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -12,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.PageTransformer;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -19,6 +22,8 @@ import android.text.style.TypefaceSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -45,6 +50,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
     public static final String EXTRA_PAGE_POSITION = "fr.tvbarthel.apps.simpleweatherforcast.MainActivity.Extra.PagePosition";
 
+    private ViewGroup mRootView;
     private ForecastPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private Toast mTextToast;
@@ -73,9 +79,53 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         mActionBarTitleDateFormat = new SimpleDateFormat("EEEE dd MMMM", Locale.getDefault());
 
         mProgressBar = (ProgressBar) findViewById(R.id.activity_main_progress_bar);
+        mRootView = (ViewGroup) findViewById(R.id.activity_main_root);
 
         initActionBar();
         initViewPager();
+        initRootPadding();
+
+
+    }
+
+    private void initRootPadding() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            final Resources resources = getResources();
+            final boolean isPortrait = resources.getBoolean(R.bool.is_portrait);
+            final ActionBar actionBar = getSupportActionBar();
+
+            final ViewTreeObserver vto = mRootView.getViewTreeObserver();
+            if (vto.isAlive()) {
+                vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                    @Override
+                    public boolean onPreDraw() {
+                        mRootView.getViewTreeObserver().removeOnPreDrawListener(this);
+
+                        int paddingBottom = mRootView.getPaddingBottom();
+                        int paddingTop = mRootView.getPaddingTop() + actionBar.getHeight();
+                        int paddingRight = mRootView.getPaddingRight();
+                        int paddingLeft = mRootView.getPaddingLeft();
+
+                        // Add the status bar height to the top padding.
+                        int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
+                        if (resourceId > 0) {
+                            paddingTop += resources.getDimensionPixelSize(resourceId);
+                        }
+
+                        if (isPortrait) {
+                            // Add the navigation bar height to the bottom padding.
+                            resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+                            if (resourceId > 0) {
+                                paddingBottom += resources.getDimensionPixelSize(resourceId);
+                            }
+                        }
+
+                        mRootView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+                        return true;
+                    }
+                });
+            }
+        }
     }
 
     @Override
