@@ -118,6 +118,12 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
                             if (resourceId > 0) {
                                 paddingBottom += resources.getDimensionPixelSize(resourceId);
                             }
+                        } else {
+                            // Add the navigation bar width to the right padding.
+                            resourceId = resources.getIdentifier("navigation_bar_width", "dimen", "android");
+                            if (resourceId > 0) {
+                                paddingRight += resources.getDimensionPixelSize(resourceId);
+                            }
                         }
 
                         mRootView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
