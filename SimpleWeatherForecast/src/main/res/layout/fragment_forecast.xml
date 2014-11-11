@@ -15,7 +15,7 @@
         android:id="@+id/fragment_forecast_weather_description"
         android:gravity="center"
         android:textColor="@color/text_palette_one"
-        android:textSize="@dimen/text_medium"
+        android:textSize="@dimen/fragment_forecast_text_medium"
         android:fontFamily="sans-serif-light" />
 
     <TextView
@@ -26,7 +26,7 @@
         android:id="@+id/fragment_forecast_day_temperature"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/text_palette_one"
-        android:textSize="@dimen/text_large"
+        android:textSize="@dimen/fragment_forecast_text_large"
         android:fontFamily="sans-serif-light" />
 
     <TextView
@@ -36,6 +36,6 @@
         android:id="@+id/fragment_forecast_min_max"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/text_palette_one"
-        android:textSize="@dimen/text_medium"
+        android:textSize="@dimen/fragment_forecast_text_medium"
         android:fontFamily="sans-serif-light" />
 </LinearLayout>
