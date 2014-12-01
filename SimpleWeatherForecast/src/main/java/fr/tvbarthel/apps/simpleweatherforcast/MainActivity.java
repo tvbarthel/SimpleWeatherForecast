@@ -1,5 +1,6 @@
 package fr.tvbarthel.apps.simpleweatherforcast;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -16,6 +17,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.PageTransformer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.TypefaceSpan;
@@ -69,6 +71,9 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
+        setSupportActionBar(toolbar);
+
         // Get the colors used for the background
         mBackgroundColors = getResources().getIntArray(R.array.background_colors);
         //Get the temperature unit symbol
@@ -84,8 +89,6 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         initActionBar();
         initViewPager();
         initRootPadding();
-
-
     }
 
     private void initRootPadding() {
@@ -102,7 +105,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
                         mRootView.getViewTreeObserver().removeOnPreDrawListener(this);
 
                         int paddingBottom = mRootView.getPaddingBottom();
-                        int paddingTop = mRootView.getPaddingTop() + actionBar.getHeight();
+                        int paddingTop = mRootView.getPaddingTop();
                         int paddingRight = mRootView.getPaddingRight();
                         int paddingLeft = mRootView.getPaddingLeft();
 
@@ -392,10 +395,15 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         }
     }
 
+    @SuppressLint("NewApi")
     private void setGradientBackgroundColor(int currentPosition, float positionOffset) {
         final GradientDrawable g = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
                 new int[]{getColor(currentPosition, positionOffset), getColor(currentPosition, (float) Math.pow(positionOffset, 0.40))});
-        getWindow().setBackgroundDrawable(g);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+            mRootView.setBackgroundDrawable(g);
+        } else {
+            mRootView.setBackground(g);
+        }
     }
 
     private void setActionBarAlpha(float alpha) {
