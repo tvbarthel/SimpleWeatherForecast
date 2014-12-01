@@ -262,8 +262,9 @@ public class IabHelper {
             }
         };
 
-        boolean successfullyBound  = mContext.bindService(new Intent("com.android.vending.billing.InAppBillingService.BIND"),
-                mServiceConn, Context.BIND_AUTO_CREATE);
+        Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
+        serviceIntent.setPackage("com.android.vending");
+        boolean successfullyBound = mContext.bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
 
         if (!successfullyBound) {
             // no service available to handle that Intent
